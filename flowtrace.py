@@ -1,6 +1,7 @@
 import argparse
 import inspect
 import json
+import threading
 import runpy
 import sys
 import time
@@ -36,6 +37,12 @@ class TraceradoProfiler:
             except Exception:
                 pass
         self._tracemalloc_enabled = False
+        self._write_lock = threading.Lock()
+        self._flush_interval = 0.2
+        self._last_flush = -1e9  # fuerza un primer flush inmediato
+        self._stop_flush = threading.Event()
+        self._flush_thread = None
+        self._last_seen_callable = None
 
     def _memory_snapshot(self):
         snapshot = {}
@@ -188,6 +195,7 @@ class TraceradoProfiler:
             }
             self._next_id += 1
             self._inflight[frame_id] = (entry, time.time())
+            self._last_seen_callable = entry["callable"]
             if self._stack:
                 parent = self._stack[-1]
                 entry["caller"] = f"{parent.get('called')}::{parent.get('callable')}"
@@ -202,6 +210,7 @@ class TraceradoProfiler:
                 self.records.append(entry)
             self._stack.append(entry)
             entry["memory_before"] = self._memory_snapshot()
+            self._maybe_flush(force=True, current=entry["callable"], log=True)
             return
 
         if frame_id not in self._inflight:
@@ -218,6 +227,7 @@ class TraceradoProfiler:
             self._inflight.pop(frame_id, None)
             if self._stack and self._stack[-1] is entry:
                 self._stack.pop()
+            self._maybe_flush(force=True, current=entry["callable"], log=True)
         elif event == "exception":
             exc_type, exc_value, _ = arg
             entry["inputs_after"] = self._capture_inputs(frame)
@@ -228,6 +238,7 @@ class TraceradoProfiler:
             self._inflight.pop(frame_id, None)
             if self._stack and self._stack[-1] is entry:
                 self._stack.pop()
+            self._maybe_flush(force=True, current=entry["callable"], log=True)
 
     def run(self):
         script_name = self.script_path.name
@@ -247,11 +258,16 @@ class TraceradoProfiler:
         tracemalloc.start(10)
         self._tracemalloc_enabled = True
         self._root_entry["memory_before"] = self._memory_snapshot()
+        self._maybe_flush(force=True, current=self._root_entry.get("callable"), log=True)  # snapshot inicial
         sys.setprofile(self._profile)
         old_argv = sys.argv
         # emula la ejecucion normal del script, permitiendo argumentos personalizados
         sys.argv = [str(self.script_path)] + self.script_args
         exc_raised: BaseException | None = None
+        # lanzar thread que flushea cada _flush_interval
+        self._stop_flush.clear()
+        self._flush_thread = threading.Thread(target=self._flush_loop, daemon=True)
+        self._flush_thread.start()
         try:
             runpy.run_path(str(self.script_path), run_name="__main__")
         except BaseException as exc:  # capturamos para reflejar error en la raiz
@@ -273,10 +289,11 @@ class TraceradoProfiler:
             if self._tracemalloc_enabled:
                 tracemalloc.stop()
             self._prune_calls(self._root_entry)
-            self.output_path.write_text(
-                json.dumps(self.records, indent=2, ensure_ascii=True),
-                encoding="utf-8",
-            )
+            self._maybe_flush(force=True)
+            self._stop_flush.set()
+            if self._flush_thread:
+                self._flush_thread.join(timeout=1)
+            print()
         if exc_raised:
             raise exc_raised
 
@@ -304,6 +321,39 @@ class TraceradoProfiler:
             node["error"] = exc_repr
         for child in node.get("calls", []):
             self._propagate_error(child, exc_repr)
+
+    def _write_output(self, payload):
+        with open(self.output_path, "w", encoding="utf-8", newline="") as f:
+            f.write(payload)
+            f.flush()
+
+    def _maybe_flush(self, force=False, current=None, log=False):
+        now = time.time()
+        if not force and now - self._last_flush < self._flush_interval:
+            return
+        with self._write_lock:
+            snapshot = json.dumps(self.records, indent=2, ensure_ascii=True)
+            current_call = (
+                current
+                or (f"{self._stack[-1].get('module','')}::{self._stack[-1].get('callable','')}" if self._stack else None)
+                or self._last_seen_callable
+                or self._root_entry.get("callable", "")
+            )
+        self._last_flush = now
+        if log:
+            sys.stderr.write(
+                f"[FlowTrace] Guardando snapshot (callable={current_call}) en {self.output_path}\n"
+            )
+            sys.stderr.flush()
+        self._write_output(snapshot)
+
+    def _flush_loop(self):
+        while not self._stop_flush.is_set():
+            try:
+                self._maybe_flush(log=False)
+            except Exception:
+                pass
+            time.sleep(self._flush_interval)
 
     def _is_class_definition_node(self, node):
         # class definitions ya se excluyeron en _is_class_definition del tracer
