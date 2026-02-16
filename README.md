@@ -13,6 +13,11 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
    - Expand/collapse nodes; open calls.
    - Controls to show/hide badges, Python internals, language (es/en), and light/dark mode.
 
+### Passing script arguments
+- Any arguments unknown to `flowtrace.py` are forwarded to the profiled script (no `--` separator required).
+- Example with options: `python flowtrace.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
+- Example with positionals: `python flowtrace.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
+
 ## Features
 - Captures inputs/outputs, caller, module, duration, and errors.
 - Groups instances and nested calls while preserving hierarchy.
@@ -23,6 +28,7 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - `script.py` basic example.
 - `complex_app.py` with modules `demo/...` (prices, taxes, discounts).
 - `conc_demo.py` with CPU-bound (multiprocessing) and IO-bound (threads) to view concurrent traces.
+- `basic_positional_sample.py` shows the same flow using positional arguments.
 
 ## Backlog / ideas
 - Filters by module/class/time.
@@ -44,6 +50,11 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
    - Expandir/colapsar nodos; abrir calls.
    - Controles para mostrar/ocultar badges, internals de Python, idioma (es/en) y modo claro/oscuro.
 
+### Pasar argumentos al script
+- Cualquier argumento que `flowtrace.py` no reconoce se reenvia al script perfilado (no hace falta `--`).
+- Ejemplo con opciones: `python flowtrace.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
+- Ejemplo con posicionales: `python flowtrace.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
+
 ## Caracteristicas
 - Captura inputs/outputs, caller, modulo, duracion y errores.
 - Agrupa instancias y llamadas anidadas preservando jerarquia.
@@ -54,6 +65,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - `script.py` ejemplo basico.
 - `complex_app.py` con modulos `demo/...` (precios, impuestos, descuentos).
 - `conc_demo.py` con CPU-bound (multiproceso) e IO-bound (hilos) para ver trazas concurrentes.
+- `basic_positional_sample.py` muestra el mismo flujo usando argumentos posicionales.
 
 ## Pendientes / ideas
 - Filtros por mdulo/clase/tiempo.
