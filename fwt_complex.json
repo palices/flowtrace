@@ -1,0 +1,2475 @@
+[
+  {
+    "id": 0,
+    "callable": "complex_app.py",
+    "module": "__main__",
+    "called": "complex_app.py",
+    "inputs": {},
+    "output": null,
+    "error": null,
+    "duration_ms": null,
+    "calls": [
+      {
+        "id": 2,
+        "callable": "checkout",
+        "module": "demo.services.checkout",
+        "called": "checkout",
+        "caller": "main::main",
+        "instance_id": null,
+        "inputs": {
+          "lines": [
+            [
+              "coffee",
+              2
+            ],
+            [
+              "cookie",
+              4
+            ],
+            [
+              "tea",
+              1
+            ]
+          ],
+          "loyalty_points": 350
+        },
+        "calls": [
+          {
+            "id": 3,
+            "callable": "price_line",
+            "module": "demo.services.checkout",
+            "called": "price_line",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              "name": "coffee",
+              "qty": 2,
+              "loyalty_points": 350
+            },
+            "calls": [
+              {
+                "id": 4,
+                "callable": "get_product",
+                "module": "demo.repository.products",
+                "called": "get_product",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "name": "coffee"
+                },
+                "calls": [
+                  {
+                    "id": 5,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "get_product::get_product",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "coffee",
+                        "price": 3.5
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 6,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "get_product: {'name': 'coffee', 'price': 3.5}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 546436,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "get_product: {'name': 'coffee', 'price': 3.5}"
+                        },
+                        "output": "[00:36:15] get_product: {'name': 'coffee', 'price': 3.5}",
+                        "error": null,
+                        "duration_ms": 16.028,
+                        "memory_after": {
+                          "py_tracemalloc_current": 547374,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 544655,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "coffee",
+                        "price": 3.5
+                      }
+                    },
+                    "output": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "coffee",
+                        "price": 3.5
+                      },
+                      "logged": "[00:36:15] get_product: {'name': 'coffee', 'price': 3.5}"
+                    },
+                    "error": null,
+                    "duration_ms": 47.66,
+                    "memory_after": {
+                      "py_tracemalloc_current": 548269,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 543502,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "name": "coffee"
+                },
+                "output": {
+                  "name": "get_product",
+                  "payload": {
+                    "name": "coffee",
+                    "price": 3.5
+                  },
+                  "logged": "[00:36:15] get_product: {'name': 'coffee', 'price': 3.5}"
+                },
+                "error": null,
+                "duration_ms": 83.134,
+                "memory_after": {
+                  "py_tracemalloc_current": 548829,
+                  "py_tracemalloc_peak": 633710
+                }
+              },
+              {
+                "id": 7,
+                "callable": "apply_discounts",
+                "module": "demo.pricing.discounts",
+                "called": "apply_discounts",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "item": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 7.0
+                  },
+                  "points": 350
+                },
+                "calls": [
+                  {
+                    "id": 8,
+                    "callable": "bulk_discount",
+                    "module": "demo.pricing.discounts",
+                    "called": "bulk_discount",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "subtotal": 7.0,
+                      "items": 2
+                    },
+                    "calls": [
+                      {
+                        "id": 9,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "bulk_discount::bulk_discount",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.0,
+                          "low": 0,
+                          "high": 2.1
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 553082,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "value": 0.0,
+                          "low": 0,
+                          "high": 2.1
+                        },
+                        "output": 0,
+                        "error": null,
+                        "duration_ms": 31.89,
+                        "memory_after": {
+                          "py_tracemalloc_current": 553874,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 551653,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "subtotal": 7.0,
+                      "items": 2
+                    },
+                    "output": 0,
+                    "error": null,
+                    "duration_ms": 60.713,
+                    "memory_after": {
+                      "py_tracemalloc_current": 554058,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  },
+                  {
+                    "id": 10,
+                    "callable": "loyalty_discount",
+                    "module": "demo.pricing.discounts",
+                    "called": "loyalty_discount",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "subtotal": 7.0,
+                      "points": 350
+                    },
+                    "calls": [
+                      {
+                        "id": 11,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "loyalty_discount::loyalty_discount",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.7000000000000001,
+                          "low": 0,
+                          "high": 1.05
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 556286,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "value": 0.7000000000000001,
+                          "low": 0,
+                          "high": 1.05
+                        },
+                        "output": 0.7000000000000001,
+                        "error": null,
+                        "duration_ms": 39.593,
+                        "memory_after": {
+                          "py_tracemalloc_current": 557014,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 554859,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "subtotal": 7.0,
+                      "points": 350
+                    },
+                    "output": 0.7000000000000001,
+                    "error": null,
+                    "duration_ms": 78.904,
+                    "memory_after": {
+                      "py_tracemalloc_current": 557198,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  },
+                  {
+                    "id": 12,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "coffee",
+                        "qty": 2,
+                        "subtotal": 6.3,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.7000000000000001
+                        }
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 13,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "apply_discounts: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 559950,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "apply_discounts: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}"
+                        },
+                        "output": "[00:36:16] apply_discounts: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}",
+                        "error": null,
+                        "duration_ms": 31.786,
+                        "memory_after": {
+                          "py_tracemalloc_current": 560898,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 558511,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "coffee",
+                        "qty": 2,
+                        "subtotal": 6.3,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.7000000000000001
+                        }
+                      }
+                    },
+                    "output": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "coffee",
+                        "qty": 2,
+                        "subtotal": 6.3,
+                        "discounts": {
+                          "bulk": "0",
+                          "loyalty": "0.7000000000000001"
+                        }
+                      },
+                      "logged": "[00:36:16] apply_discounts: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}"
+                    },
+                    "error": null,
+                    "duration_ms": 50.139,
+                    "memory_after": {
+                      "py_tracemalloc_current": 562262,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 550020,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "item": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 7.0
+                  },
+                  "points": 350
+                },
+                "output": {
+                  "name": "apply_discounts",
+                  "payload": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": "0",
+                      "loyalty": "0.7000000000000001"
+                    }
+                  },
+                  "logged": "[00:36:16] apply_discounts: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}"
+                },
+                "error": null,
+                "duration_ms": 284.802,
+                "memory_after": {
+                  "py_tracemalloc_current": 563291,
+                  "py_tracemalloc_peak": 633710
+                }
+              },
+              {
+                "id": 14,
+                "callable": "apply_tax_line",
+                "module": "demo.pricing.tax",
+                "called": "apply_tax_line",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "item": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.7000000000000001
+                    }
+                  },
+                  "rate": 0.21
+                },
+                "calls": [
+                  {
+                    "id": 15,
+                    "callable": "vat",
+                    "module": "demo.pricing.tax",
+                    "called": "vat",
+                    "caller": "apply_tax_line::apply_tax_line",
+                    "instance_id": null,
+                    "inputs": {
+                      "amount": 6.3,
+                      "rate": 0.21
+                    },
+                    "calls": [
+                      {
+                        "id": 16,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "vat::vat",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 1.323,
+                          "low": 0,
+                          "high": 12.6
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 567474,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "value": 1.323,
+                          "low": 0,
+                          "high": 12.6
+                        },
+                        "output": 1.323,
+                        "error": null,
+                        "duration_ms": 45.429,
+                        "memory_after": {
+                          "py_tracemalloc_current": 568202,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 566073,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "amount": 6.3,
+                      "rate": 0.21
+                    },
+                    "output": 1.323,
+                    "error": null,
+                    "duration_ms": 61.233,
+                    "memory_after": {
+                      "py_tracemalloc_current": 568386,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  },
+                  {
+                    "id": 17,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "apply_tax_line::apply_tax_line",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "coffee",
+                        "qty": 2,
+                        "subtotal": 6.3,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.7000000000000001
+                        },
+                        "tax": 1.323,
+                        "total": 7.622999999999999
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 18,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "apply_tax_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 571169,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "apply_tax_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999}"
+                        },
+                        "output": "[00:36:16] apply_tax_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999}",
+                        "error": null,
+                        "duration_ms": 32.038,
+                        "memory_after": {
+                          "py_tracemalloc_current": 572158,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 569809,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "coffee",
+                        "qty": 2,
+                        "subtotal": 6.3,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.7000000000000001
+                        },
+                        "tax": 1.323,
+                        "total": 7.622999999999999
+                      }
+                    },
+                    "output": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "coffee",
+                        "qty": 2,
+                        "subtotal": 6.3,
+                        "discounts": {
+                          "bulk": "0",
+                          "loyalty": "0.7000000000000001"
+                        },
+                        "tax": 1.323,
+                        "total": 7.622999999999999
+                      },
+                      "logged": "[00:36:16] apply_tax_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999}"
+                    },
+                    "error": null,
+                    "duration_ms": 45.924,
+                    "memory_after": {
+                      "py_tracemalloc_current": 573698,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 564450,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "item": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.7000000000000001
+                    }
+                  },
+                  "rate": 0.21
+                },
+                "output": {
+                  "name": "apply_tax_line",
+                  "payload": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": "0",
+                      "loyalty": "0.7000000000000001"
+                    },
+                    "tax": 1.323,
+                    "total": 7.622999999999999
+                  },
+                  "logged": "[00:36:16] apply_tax_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999}"
+                },
+                "error": null,
+                "duration_ms": 159.221,
+                "memory_after": {
+                  "py_tracemalloc_current": 574999,
+                  "py_tracemalloc_peak": 633710
+                }
+              },
+              {
+                "id": 19,
+                "callable": "trace_call",
+                "module": "demo.common.logger",
+                "called": "trace_call",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.7000000000000001
+                    },
+                    "tax": 1.323,
+                    "total": 7.622999999999999,
+                    "trace": {
+                      "product": {
+                        "name": "'coffee'",
+                        "price": "3.5"
+                      },
+                      "discounts": {
+                        "name": "'coffee'",
+                        "qty": "2",
+                        "subtotal": "6.3",
+                        "discounts": "{'bulk': 0, 'loyalty': 0.7000000000000001}"
+                      }
+                    }
+                  }
+                },
+                "calls": [
+                  {
+                    "id": 20,
+                    "callable": "log",
+                    "module": "demo.common.logger",
+                    "called": "log",
+                    "caller": "trace_call::trace_call",
+                    "instance_id": null,
+                    "inputs": {
+                      "message": "price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}"
+                    },
+                    "calls": [],
+                    "memory_before": {
+                      "py_tracemalloc_current": 578894,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "message": "price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}"
+                    },
+                    "output": "[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}",
+                    "error": null,
+                    "duration_ms": 16.076,
+                    "memory_after": {
+                      "py_tracemalloc_current": 580052,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 577245,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.7000000000000001
+                    },
+                    "tax": 1.323,
+                    "total": 7.622999999999999,
+                    "trace": {
+                      "product": {
+                        "name": "'coffee'",
+                        "price": "3.5"
+                      },
+                      "discounts": {
+                        "name": "'coffee'",
+                        "qty": "2",
+                        "subtotal": "6.3",
+                        "discounts": "{'bulk': 0, 'loyalty': 0.7000000000000001}"
+                      }
+                    }
+                  }
+                },
+                "output": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "coffee",
+                    "qty": 2,
+                    "subtotal": 6.3,
+                    "discounts": {
+                      "bulk": "0",
+                      "loyalty": "0.7000000000000001"
+                    },
+                    "tax": 1.323,
+                    "total": 7.622999999999999,
+                    "trace": {
+                      "product": "{'name': 'coffee', 'price': 3.5}",
+                      "discounts": "{'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}"
+                    }
+                  },
+                  "logged": "[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}"
+                },
+                "error": null,
+                "duration_ms": 59.311,
+                "memory_after": {
+                  "py_tracemalloc_current": 582855,
+                  "py_tracemalloc_peak": 633710
+                }
+              }
+            ],
+            "memory_before": {
+              "py_tracemalloc_current": 542783,
+              "py_tracemalloc_peak": 633710
+            },
+            "inputs_after": {
+              "name": "coffee",
+              "qty": 2,
+              "loyalty_points": 350
+            },
+            "output": {
+              "name": "price_line",
+              "payload": {
+                "name": "coffee",
+                "qty": 2,
+                "subtotal": 6.3,
+                "discounts": {
+                  "bulk": "0",
+                  "loyalty": "0.7000000000000001"
+                },
+                "tax": 1.323,
+                "total": 7.622999999999999,
+                "trace": {
+                  "product": "{'name': 'coffee', 'price': 3.5}",
+                  "discounts": "{'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}"
+                }
+              },
+              "logged": "[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}"
+            },
+            "error": null,
+            "duration_ms": 634.601,
+            "memory_after": {
+              "py_tracemalloc_current": 584276,
+              "py_tracemalloc_peak": 633710
+            }
+          },
+          {
+            "id": 21,
+            "callable": "price_line",
+            "module": "demo.services.checkout",
+            "called": "price_line",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              "name": "cookie",
+              "qty": 4,
+              "loyalty_points": 350
+            },
+            "calls": [
+              {
+                "id": 22,
+                "callable": "get_product",
+                "module": "demo.repository.products",
+                "called": "get_product",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "name": "cookie"
+                },
+                "calls": [
+                  {
+                    "id": 23,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "get_product::get_product",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "cookie",
+                        "price": 1.2
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 24,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "get_product: {'name': 'cookie', 'price': 1.2}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 588524,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "get_product: {'name': 'cookie', 'price': 1.2}"
+                        },
+                        "output": "[00:36:16] get_product: {'name': 'cookie', 'price': 1.2}",
+                        "error": null,
+                        "duration_ms": 15.911,
+                        "memory_after": {
+                          "py_tracemalloc_current": 589398,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 587159,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "cookie",
+                        "price": 1.2
+                      }
+                    },
+                    "output": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "cookie",
+                        "price": 1.2
+                      },
+                      "logged": "[00:36:16] get_product: {'name': 'cookie', 'price': 1.2}"
+                    },
+                    "error": null,
+                    "duration_ms": 48.52,
+                    "memory_after": {
+                      "py_tracemalloc_current": 590293,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 585494,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "name": "cookie"
+                },
+                "output": {
+                  "name": "get_product",
+                  "payload": {
+                    "name": "cookie",
+                    "price": 1.2
+                  },
+                  "logged": "[00:36:16] get_product: {'name': 'cookie', 'price': 1.2}"
+                },
+                "error": null,
+                "duration_ms": 94.522,
+                "memory_after": {
+                  "py_tracemalloc_current": 590853,
+                  "py_tracemalloc_peak": 633710
+                }
+              },
+              {
+                "id": 25,
+                "callable": "apply_discounts",
+                "module": "demo.pricing.discounts",
+                "called": "apply_discounts",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "item": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.8
+                  },
+                  "points": 350
+                },
+                "calls": [
+                  {
+                    "id": 26,
+                    "callable": "bulk_discount",
+                    "module": "demo.pricing.discounts",
+                    "called": "bulk_discount",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "subtotal": 4.8,
+                      "items": 4
+                    },
+                    "calls": [
+                      {
+                        "id": 27,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "bulk_discount::bulk_discount",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.24,
+                          "low": 0,
+                          "high": 1.44
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 594826,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "value": 0.24,
+                          "low": 0,
+                          "high": 1.44
+                        },
+                        "output": 0.24,
+                        "error": null,
+                        "duration_ms": 37.835,
+                        "memory_after": {
+                          "py_tracemalloc_current": 595554,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 593469,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "subtotal": 4.8,
+                      "items": 4
+                    },
+                    "output": 0.24,
+                    "error": null,
+                    "duration_ms": 63.175,
+                    "memory_after": {
+                      "py_tracemalloc_current": 595738,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  },
+                  {
+                    "id": 28,
+                    "callable": "loyalty_discount",
+                    "module": "demo.pricing.discounts",
+                    "called": "loyalty_discount",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "subtotal": 4.8,
+                      "points": 350
+                    },
+                    "calls": [
+                      {
+                        "id": 29,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "loyalty_discount::loyalty_discount",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.48,
+                          "low": 0,
+                          "high": 0.72
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 597830,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "value": 0.48,
+                          "low": 0,
+                          "high": 0.72
+                        },
+                        "output": 0.48,
+                        "error": null,
+                        "duration_ms": 47.63,
+                        "memory_after": {
+                          "py_tracemalloc_current": 598558,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 596467,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "subtotal": 4.8,
+                      "points": 350
+                    },
+                    "output": 0.48,
+                    "error": null,
+                    "duration_ms": 79.142,
+                    "memory_after": {
+                      "py_tracemalloc_current": 598742,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  },
+                  {
+                    "id": 30,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "cookie",
+                        "qty": 4,
+                        "subtotal": 4.08,
+                        "discounts": {
+                          "bulk": 0.24,
+                          "loyalty": 0.48
+                        }
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 31,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "apply_discounts: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 601484,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "apply_discounts: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}"
+                        },
+                        "output": "[00:36:16] apply_discounts: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}",
+                        "error": null,
+                        "duration_ms": 35.639,
+                        "memory_after": {
+                          "py_tracemalloc_current": 602422,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 600055,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "cookie",
+                        "qty": 4,
+                        "subtotal": 4.08,
+                        "discounts": {
+                          "bulk": 0.24,
+                          "loyalty": 0.48
+                        }
+                      }
+                    },
+                    "output": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "cookie",
+                        "qty": 4,
+                        "subtotal": 4.08,
+                        "discounts": {
+                          "bulk": "0.24",
+                          "loyalty": "0.48"
+                        }
+                      },
+                      "logged": "[00:36:16] apply_discounts: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}"
+                    },
+                    "error": null,
+                    "duration_ms": 63.771,
+                    "memory_after": {
+                      "py_tracemalloc_current": 603775,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 591972,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "item": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.8
+                  },
+                  "points": 350
+                },
+                "output": {
+                  "name": "apply_discounts",
+                  "payload": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": "0.24",
+                      "loyalty": "0.48"
+                    }
+                  },
+                  "logged": "[00:36:16] apply_discounts: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}"
+                },
+                "error": null,
+                "duration_ms": 282.771,
+                "memory_after": {
+                  "py_tracemalloc_current": 604793,
+                  "py_tracemalloc_peak": 633710
+                }
+              },
+              {
+                "id": 32,
+                "callable": "apply_tax_line",
+                "module": "demo.pricing.tax",
+                "called": "apply_tax_line",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "item": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": 0.24,
+                      "loyalty": 0.48
+                    }
+                  },
+                  "rate": 0.21
+                },
+                "calls": [
+                  {
+                    "id": 33,
+                    "callable": "vat",
+                    "module": "demo.pricing.tax",
+                    "called": "vat",
+                    "caller": "apply_tax_line::apply_tax_line",
+                    "instance_id": null,
+                    "inputs": {
+                      "amount": 4.08,
+                      "rate": 0.21
+                    },
+                    "calls": [
+                      {
+                        "id": 34,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "vat::vat",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.8568,
+                          "low": 0,
+                          "high": 8.16
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 608704,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "value": 0.8568,
+                          "low": 0,
+                          "high": 8.16
+                        },
+                        "output": 0.8568,
+                        "error": null,
+                        "duration_ms": 52.878,
+                        "memory_after": {
+                          "py_tracemalloc_current": 609432,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 607367,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "amount": 4.08,
+                      "rate": 0.21
+                    },
+                    "output": 0.8568,
+                    "error": null,
+                    "duration_ms": 63.42,
+                    "memory_after": {
+                      "py_tracemalloc_current": 609616,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  },
+                  {
+                    "id": 35,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "apply_tax_line::apply_tax_line",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "cookie",
+                        "qty": 4,
+                        "subtotal": 4.08,
+                        "discounts": {
+                          "bulk": 0.24,
+                          "loyalty": 0.48
+                        },
+                        "tax": 0.8568,
+                        "total": 4.9368
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 36,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "apply_tax_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 612379,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "apply_tax_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368}"
+                        },
+                        "output": "[00:36:17] apply_tax_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368}",
+                        "error": null,
+                        "duration_ms": 31.844,
+                        "memory_after": {
+                          "py_tracemalloc_current": 613348,
+                          "py_tracemalloc_peak": 633710
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 611039,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "cookie",
+                        "qty": 4,
+                        "subtotal": 4.08,
+                        "discounts": {
+                          "bulk": 0.24,
+                          "loyalty": 0.48
+                        },
+                        "tax": 0.8568,
+                        "total": 4.9368
+                      }
+                    },
+                    "output": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "cookie",
+                        "qty": 4,
+                        "subtotal": 4.08,
+                        "discounts": {
+                          "bulk": "0.24",
+                          "loyalty": "0.48"
+                        },
+                        "tax": 0.8568,
+                        "total": 4.9368
+                      },
+                      "logged": "[00:36:17] apply_tax_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368}"
+                    },
+                    "error": null,
+                    "duration_ms": 63.821,
+                    "memory_after": {
+                      "py_tracemalloc_current": 614877,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 605880,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "item": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": 0.24,
+                      "loyalty": 0.48
+                    }
+                  },
+                  "rate": 0.21
+                },
+                "output": {
+                  "name": "apply_tax_line",
+                  "payload": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": "0.24",
+                      "loyalty": "0.48"
+                    },
+                    "tax": 0.8568,
+                    "total": 4.9368
+                  },
+                  "logged": "[00:36:17] apply_tax_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368}"
+                },
+                "error": null,
+                "duration_ms": 149.308,
+                "memory_after": {
+                  "py_tracemalloc_current": 616167,
+                  "py_tracemalloc_peak": 633710
+                }
+              },
+              {
+                "id": 37,
+                "callable": "trace_call",
+                "module": "demo.common.logger",
+                "called": "trace_call",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": 0.24,
+                      "loyalty": 0.48
+                    },
+                    "tax": 0.8568,
+                    "total": 4.9368,
+                    "trace": {
+                      "product": {
+                        "name": "'cookie'",
+                        "price": "1.2"
+                      },
+                      "discounts": {
+                        "name": "'cookie'",
+                        "qty": "4",
+                        "subtotal": "4.08",
+                        "discounts": "{'bulk': 0.24, 'loyalty': 0.48}"
+                      }
+                    }
+                  }
+                },
+                "calls": [
+                  {
+                    "id": 38,
+                    "callable": "log",
+                    "module": "demo.common.logger",
+                    "called": "log",
+                    "caller": "trace_call::trace_call",
+                    "instance_id": null,
+                    "inputs": {
+                      "message": "price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}"
+                    },
+                    "calls": [],
+                    "memory_before": {
+                      "py_tracemalloc_current": 620022,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "message": "price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}"
+                    },
+                    "output": "[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}",
+                    "error": null,
+                    "duration_ms": 15.857,
+                    "memory_after": {
+                      "py_tracemalloc_current": 621150,
+                      "py_tracemalloc_peak": 633710
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 618403,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": 0.24,
+                      "loyalty": 0.48
+                    },
+                    "tax": 0.8568,
+                    "total": 4.9368,
+                    "trace": {
+                      "product": {
+                        "name": "'cookie'",
+                        "price": "1.2"
+                      },
+                      "discounts": {
+                        "name": "'cookie'",
+                        "qty": "4",
+                        "subtotal": "4.08",
+                        "discounts": "{'bulk': 0.24, 'loyalty': 0.48}"
+                      }
+                    }
+                  }
+                },
+                "output": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "cookie",
+                    "qty": 4,
+                    "subtotal": 4.08,
+                    "discounts": {
+                      "bulk": "0.24",
+                      "loyalty": "0.48"
+                    },
+                    "tax": 0.8568,
+                    "total": 4.9368,
+                    "trace": {
+                      "product": "{'name': 'cookie', 'price': 1.2}",
+                      "discounts": "{'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}"
+                    }
+                  },
+                  "logged": "[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}"
+                },
+                "error": null,
+                "duration_ms": 47.789,
+                "memory_after": {
+                  "py_tracemalloc_current": 623922,
+                  "py_tracemalloc_peak": 633710
+                }
+              }
+            ],
+            "memory_before": {
+              "py_tracemalloc_current": 584391,
+              "py_tracemalloc_peak": 633710
+            },
+            "inputs_after": {
+              "name": "cookie",
+              "qty": 4,
+              "loyalty_points": 350
+            },
+            "output": {
+              "name": "price_line",
+              "payload": {
+                "name": "cookie",
+                "qty": 4,
+                "subtotal": 4.08,
+                "discounts": {
+                  "bulk": "0.24",
+                  "loyalty": "0.48"
+                },
+                "tax": 0.8568,
+                "total": 4.9368,
+                "trace": {
+                  "product": "{'name': 'cookie', 'price': 1.2}",
+                  "discounts": "{'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}"
+                }
+              },
+              "logged": "[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}"
+            },
+            "error": null,
+            "duration_ms": 633.562,
+            "memory_after": {
+              "py_tracemalloc_current": 625322,
+              "py_tracemalloc_peak": 633710
+            }
+          },
+          {
+            "id": 39,
+            "callable": "price_line",
+            "module": "demo.services.checkout",
+            "called": "price_line",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              "name": "tea",
+              "qty": 1,
+              "loyalty_points": 350
+            },
+            "calls": [
+              {
+                "id": 40,
+                "callable": "get_product",
+                "module": "demo.repository.products",
+                "called": "get_product",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "name": "tea"
+                },
+                "calls": [
+                  {
+                    "id": 41,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "get_product::get_product",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "tea",
+                        "price": 2.9
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 42,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "get_product: {'name': 'tea', 'price': 2.9}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 629535,
+                          "py_tracemalloc_peak": 633710
+                        },
+                        "inputs_after": {
+                          "message": "get_product: {'name': 'tea', 'price': 2.9}"
+                        },
+                        "output": "[00:36:17] get_product: {'name': 'tea', 'price': 2.9}",
+                        "error": null,
+                        "duration_ms": 16.09,
+                        "memory_after": {
+                          "py_tracemalloc_current": 630406,
+                          "py_tracemalloc_peak": 634725
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 628173,
+                      "py_tracemalloc_peak": 633710
+                    },
+                    "inputs_after": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "tea",
+                        "price": 2.9
+                      }
+                    },
+                    "output": {
+                      "name": "get_product",
+                      "payload": {
+                        "name": "tea",
+                        "price": 2.9
+                      },
+                      "logged": "[00:36:17] get_product: {'name': 'tea', 'price': 2.9}"
+                    },
+                    "error": null,
+                    "duration_ms": 47.803,
+                    "memory_after": {
+                      "py_tracemalloc_current": 631301,
+                      "py_tracemalloc_peak": 635092
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 626508,
+                  "py_tracemalloc_peak": 633710
+                },
+                "inputs_after": {
+                  "name": "tea"
+                },
+                "output": {
+                  "name": "get_product",
+                  "payload": {
+                    "name": "tea",
+                    "price": 2.9
+                  },
+                  "logged": "[00:36:17] get_product: {'name': 'tea', 'price': 2.9}"
+                },
+                "error": null,
+                "duration_ms": 95.55,
+                "memory_after": {
+                  "py_tracemalloc_current": 631861,
+                  "py_tracemalloc_peak": 636038
+                }
+              },
+              {
+                "id": 43,
+                "callable": "apply_discounts",
+                "module": "demo.pricing.discounts",
+                "called": "apply_discounts",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "item": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.9
+                  },
+                  "points": 350
+                },
+                "calls": [
+                  {
+                    "id": 44,
+                    "callable": "bulk_discount",
+                    "module": "demo.pricing.discounts",
+                    "called": "bulk_discount",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "subtotal": 2.9,
+                      "items": 1
+                    },
+                    "calls": [
+                      {
+                        "id": 45,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "bulk_discount::bulk_discount",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.0,
+                          "low": 0,
+                          "high": 0.87
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 635834,
+                          "py_tracemalloc_peak": 639800
+                        },
+                        "inputs_after": {
+                          "value": 0.0,
+                          "low": 0,
+                          "high": 0.87
+                        },
+                        "output": 0,
+                        "error": null,
+                        "duration_ms": 31.551,
+                        "memory_after": {
+                          "py_tracemalloc_current": 636562,
+                          "py_tracemalloc_peak": 640893
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 634477,
+                      "py_tracemalloc_peak": 638375
+                    },
+                    "inputs_after": {
+                      "subtotal": 2.9,
+                      "items": 1
+                    },
+                    "output": 0,
+                    "error": null,
+                    "duration_ms": 59.914,
+                    "memory_after": {
+                      "py_tracemalloc_current": 636746,
+                      "py_tracemalloc_peak": 641285
+                    }
+                  },
+                  {
+                    "id": 46,
+                    "callable": "loyalty_discount",
+                    "module": "demo.pricing.discounts",
+                    "called": "loyalty_discount",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "subtotal": 2.9,
+                      "points": 350
+                    },
+                    "calls": [
+                      {
+                        "id": 47,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "loyalty_discount::loyalty_discount",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.29,
+                          "low": 0,
+                          "high": 0.435
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 638838,
+                          "py_tracemalloc_peak": 642798
+                        },
+                        "inputs_after": {
+                          "value": 0.29,
+                          "low": 0,
+                          "high": 0.435
+                        },
+                        "output": 0.29,
+                        "error": null,
+                        "duration_ms": 31.982,
+                        "memory_after": {
+                          "py_tracemalloc_current": 639566,
+                          "py_tracemalloc_peak": 643897
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 637475,
+                      "py_tracemalloc_peak": 641677
+                    },
+                    "inputs_after": {
+                      "subtotal": 2.9,
+                      "points": 350
+                    },
+                    "output": 0.29,
+                    "error": null,
+                    "duration_ms": 79.64,
+                    "memory_after": {
+                      "py_tracemalloc_current": 639750,
+                      "py_tracemalloc_peak": 644289
+                    }
+                  },
+                  {
+                    "id": 48,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "apply_discounts::apply_discounts",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "tea",
+                        "qty": 1,
+                        "subtotal": 2.61,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.29
+                        }
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 49,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "apply_discounts: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 642486,
+                          "py_tracemalloc_peak": 646446
+                        },
+                        "inputs_after": {
+                          "message": "apply_discounts: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}"
+                        },
+                        "output": "[00:36:17] apply_discounts: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}",
+                        "error": null,
+                        "duration_ms": 31.665,
+                        "memory_after": {
+                          "py_tracemalloc_current": 643418,
+                          "py_tracemalloc_peak": 647737
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 641063,
+                      "py_tracemalloc_peak": 644677
+                    },
+                    "inputs_after": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "tea",
+                        "qty": 1,
+                        "subtotal": 2.61,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.29
+                        }
+                      }
+                    },
+                    "output": {
+                      "name": "apply_discounts",
+                      "payload": {
+                        "name": "tea",
+                        "qty": 1,
+                        "subtotal": 2.61,
+                        "discounts": {
+                          "bulk": "0",
+                          "loyalty": "0.29"
+                        }
+                      },
+                      "logged": "[00:36:17] apply_discounts: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}"
+                    },
+                    "error": null,
+                    "duration_ms": 49.522,
+                    "memory_after": {
+                      "py_tracemalloc_current": 644768,
+                      "py_tracemalloc_peak": 648104
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 632980,
+                  "py_tracemalloc_peak": 636800
+                },
+                "inputs_after": {
+                  "item": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.9
+                  },
+                  "points": 350
+                },
+                "output": {
+                  "name": "apply_discounts",
+                  "payload": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": "0",
+                      "loyalty": "0.29"
+                    }
+                  },
+                  "logged": "[00:36:17] apply_discounts: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}"
+                },
+                "error": null,
+                "duration_ms": 269.493,
+                "memory_after": {
+                  "py_tracemalloc_current": 645783,
+                  "py_tracemalloc_peak": 649499
+                }
+              },
+              {
+                "id": 50,
+                "callable": "apply_tax_line",
+                "module": "demo.pricing.tax",
+                "called": "apply_tax_line",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "item": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.29
+                    }
+                  },
+                  "rate": 0.21
+                },
+                "calls": [
+                  {
+                    "id": 51,
+                    "callable": "vat",
+                    "module": "demo.pricing.tax",
+                    "called": "vat",
+                    "caller": "apply_tax_line::apply_tax_line",
+                    "instance_id": null,
+                    "inputs": {
+                      "amount": 2.61,
+                      "rate": 0.21
+                    },
+                    "calls": [
+                      {
+                        "id": 52,
+                        "callable": "clamp",
+                        "module": "demo.common.math_utils",
+                        "called": "clamp",
+                        "caller": "vat::vat",
+                        "instance_id": null,
+                        "inputs": {
+                          "value": 0.5480999999999999,
+                          "low": 0,
+                          "high": 5.22
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 649694,
+                          "py_tracemalloc_peak": 653680
+                        },
+                        "inputs_after": {
+                          "value": 0.5480999999999999,
+                          "low": 0,
+                          "high": 5.22
+                        },
+                        "output": 0.5480999999999999,
+                        "error": null,
+                        "duration_ms": 44.266,
+                        "memory_after": {
+                          "py_tracemalloc_current": 650422,
+                          "py_tracemalloc_peak": 654753
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 648357,
+                      "py_tracemalloc_peak": 652239
+                    },
+                    "inputs_after": {
+                      "amount": 2.61,
+                      "rate": 0.21
+                    },
+                    "output": 0.5480999999999999,
+                    "error": null,
+                    "duration_ms": 62.133,
+                    "memory_after": {
+                      "py_tracemalloc_current": 650606,
+                      "py_tracemalloc_peak": 655127
+                    }
+                  },
+                  {
+                    "id": 53,
+                    "callable": "trace_call",
+                    "module": "demo.common.logger",
+                    "called": "trace_call",
+                    "caller": "apply_tax_line::apply_tax_line",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "tea",
+                        "qty": 1,
+                        "subtotal": 2.61,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.29
+                        },
+                        "tax": 0.5480999999999999,
+                        "total": 3.1580999999999997
+                      }
+                    },
+                    "calls": [
+                      {
+                        "id": 54,
+                        "callable": "log",
+                        "module": "demo.common.logger",
+                        "called": "log",
+                        "caller": "trace_call::trace_call",
+                        "instance_id": null,
+                        "inputs": {
+                          "message": "apply_tax_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997}"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 653387,
+                          "py_tracemalloc_peak": 657467
+                        },
+                        "inputs_after": {
+                          "message": "apply_tax_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997}"
+                        },
+                        "output": "[00:36:17] apply_tax_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997}",
+                        "error": null,
+                        "duration_ms": 31.642,
+                        "memory_after": {
+                          "py_tracemalloc_current": 654374,
+                          "py_tracemalloc_peak": 658693
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 652029,
+                      "py_tracemalloc_peak": 655741
+                    },
+                    "inputs_after": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "tea",
+                        "qty": 1,
+                        "subtotal": 2.61,
+                        "discounts": {
+                          "bulk": 0,
+                          "loyalty": 0.29
+                        },
+                        "tax": 0.5480999999999999,
+                        "total": 3.1580999999999997
+                      }
+                    },
+                    "output": {
+                      "name": "apply_tax_line",
+                      "payload": {
+                        "name": "tea",
+                        "qty": 1,
+                        "subtotal": 2.61,
+                        "discounts": {
+                          "bulk": "0",
+                          "loyalty": "0.29"
+                        },
+                        "tax": 0.5480999999999999,
+                        "total": 3.1580999999999997
+                      },
+                      "logged": "[00:36:17] apply_tax_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997}"
+                    },
+                    "error": null,
+                    "duration_ms": 49.162,
+                    "memory_after": {
+                      "py_tracemalloc_current": 655900,
+                      "py_tracemalloc_peak": 659060
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 646870,
+                  "py_tracemalloc_peak": 650696
+                },
+                "inputs_after": {
+                  "item": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.29
+                    }
+                  },
+                  "rate": 0.21
+                },
+                "output": {
+                  "name": "apply_tax_line",
+                  "payload": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": "0",
+                      "loyalty": "0.29"
+                    },
+                    "tax": 0.5480999999999999,
+                    "total": 3.1580999999999997
+                  },
+                  "logged": "[00:36:17] apply_tax_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997}"
+                },
+                "error": null,
+                "duration_ms": 158.215,
+                "memory_after": {
+                  "py_tracemalloc_current": 657187,
+                  "py_tracemalloc_peak": 660613
+                }
+              },
+              {
+                "id": 55,
+                "callable": "trace_call",
+                "module": "demo.common.logger",
+                "called": "trace_call",
+                "caller": "price_line::price_line",
+                "instance_id": null,
+                "inputs": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.29
+                    },
+                    "tax": 0.5480999999999999,
+                    "total": 3.1580999999999997,
+                    "trace": {
+                      "product": {
+                        "name": "'tea'",
+                        "price": "2.9"
+                      },
+                      "discounts": {
+                        "name": "'tea'",
+                        "qty": "1",
+                        "subtotal": "2.61",
+                        "discounts": "{'bulk': 0, 'loyalty': 0.29}"
+                      }
+                    }
+                  }
+                },
+                "calls": [
+                  {
+                    "id": 56,
+                    "callable": "log",
+                    "module": "demo.common.logger",
+                    "called": "log",
+                    "caller": "trace_call::trace_call",
+                    "instance_id": null,
+                    "inputs": {
+                      "message": "price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}"
+                    },
+                    "calls": [],
+                    "memory_before": {
+                      "py_tracemalloc_current": 661042,
+                      "py_tracemalloc_peak": 665002
+                    },
+                    "inputs_after": {
+                      "message": "price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}"
+                    },
+                    "output": "[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}",
+                    "error": null,
+                    "duration_ms": 15.803,
+                    "memory_after": {
+                      "py_tracemalloc_current": 662179,
+                      "py_tracemalloc_peak": 666498
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 659414,
+                  "py_tracemalloc_peak": 662130
+                },
+                "inputs_after": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": 0,
+                      "loyalty": 0.29
+                    },
+                    "tax": 0.5480999999999999,
+                    "total": 3.1580999999999997,
+                    "trace": {
+                      "product": {
+                        "name": "'tea'",
+                        "price": "2.9"
+                      },
+                      "discounts": {
+                        "name": "'tea'",
+                        "qty": "1",
+                        "subtotal": "2.61",
+                        "discounts": "{'bulk': 0, 'loyalty': 0.29}"
+                      }
+                    }
+                  }
+                },
+                "output": {
+                  "name": "price_line",
+                  "payload": {
+                    "name": "tea",
+                    "qty": 1,
+                    "subtotal": 2.61,
+                    "discounts": {
+                      "bulk": "0",
+                      "loyalty": "0.29"
+                    },
+                    "tax": 0.5480999999999999,
+                    "total": 3.1580999999999997,
+                    "trace": {
+                      "product": "{'name': 'tea', 'price': 2.9}",
+                      "discounts": "{'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}"
+                    }
+                  },
+                  "logged": "[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}"
+                },
+                "error": null,
+                "duration_ms": 47.723,
+                "memory_after": {
+                  "py_tracemalloc_current": 664930,
+                  "py_tracemalloc_peak": 666865
+                }
+              }
+            ],
+            "memory_before": {
+              "py_tracemalloc_current": 625405,
+              "py_tracemalloc_peak": 633710
+            },
+            "inputs_after": {
+              "name": "tea",
+              "qty": 1,
+              "loyalty_points": 350
+            },
+            "output": {
+              "name": "price_line",
+              "payload": {
+                "name": "tea",
+                "qty": 1,
+                "subtotal": 2.61,
+                "discounts": {
+                  "bulk": "0",
+                  "loyalty": "0.29"
+                },
+                "tax": 0.5480999999999999,
+                "total": 3.1580999999999997,
+                "trace": {
+                  "product": "{'name': 'tea', 'price': 2.9}",
+                  "discounts": "{'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}"
+                }
+              },
+              "logged": "[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}"
+            },
+            "error": null,
+            "duration_ms": 634.226,
+            "memory_after": {
+              "py_tracemalloc_current": 666318,
+              "py_tracemalloc_peak": 669661
+            }
+          },
+          {
+            "id": 57,
+            "callable": "<genexpr>",
+            "module": "demo.services.checkout",
+            "called": "<genexpr>",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 666926,
+              "py_tracemalloc_peak": 671417
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "output": 7.622999999999999,
+            "error": null,
+            "duration_ms": 15.816,
+            "memory_after": {
+              "py_tracemalloc_current": 667555,
+              "py_tracemalloc_peak": 671985
+            }
+          },
+          {
+            "id": 58,
+            "callable": "<genexpr>",
+            "module": "demo.services.checkout",
+            "called": "<genexpr>",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 668395,
+              "py_tracemalloc_peak": 672494
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "output": 4.9368,
+            "error": null,
+            "duration_ms": 0.0,
+            "memory_after": {
+              "py_tracemalloc_current": 669208,
+              "py_tracemalloc_peak": 673454
+            }
+          },
+          {
+            "id": 59,
+            "callable": "<genexpr>",
+            "module": "demo.services.checkout",
+            "called": "<genexpr>",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 670016,
+              "py_tracemalloc_peak": 674147
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "output": 3.1580999999999997,
+            "error": null,
+            "duration_ms": 15.791,
+            "memory_after": {
+              "py_tracemalloc_current": 670829,
+              "py_tracemalloc_peak": 675075
+            }
+          },
+          {
+            "id": 60,
+            "callable": "<genexpr>",
+            "module": "demo.services.checkout",
+            "called": "<genexpr>",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 671637,
+              "py_tracemalloc_peak": 675768
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x000002E9D1D37850>"
+            },
+            "output": null,
+            "error": null,
+            "duration_ms": 2.537,
+            "memory_after": {
+              "py_tracemalloc_current": 672450,
+              "py_tracemalloc_peak": 676696
+            }
+          },
+          {
+            "id": 61,
+            "callable": "trace_call",
+            "module": "demo.common.logger",
+            "called": "trace_call",
+            "caller": "checkout::checkout",
+            "instance_id": null,
+            "inputs": {
+              "name": "checkout",
+              "payload": {
+                "lines": [
+                  {
+                    "name": "'price_line'",
+                    "payload": "{'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}",
+                    "logged": "\"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\""
+                  },
+                  {
+                    "name": "'price_line'",
+                    "payload": "{'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}",
+                    "logged": "\"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\""
+                  },
+                  {
+                    "name": "'price_line'",
+                    "payload": "{'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}",
+                    "logged": "\"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\""
+                  }
+                ],
+                "total": 15.717899999999998,
+                "loyalty_points": 350
+              }
+            },
+            "calls": [
+              {
+                "id": 62,
+                "callable": "log",
+                "module": "demo.common.logger",
+                "called": "log",
+                "caller": "trace_call::trace_call",
+                "instance_id": null,
+                "inputs": {
+                  "message": "checkout: {'lines': [{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}, {'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}, {'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}], 'total': 15.717899999999998, 'loyalty_points': 350}"
+                },
+                "calls": [],
+                "memory_before": {
+                  "py_tracemalloc_current": 679524,
+                  "py_tracemalloc_peak": 683484
+                },
+                "inputs_after": {
+                  "message": "checkout: {'lines': [{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}, {'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}, {'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}], 'total': 15.717899999999998, 'loyalty_points': 350}"
+                },
+                "output": "[00:36:17] checkout: {'lines': [{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}, {'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}, {'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}], 'total': 15.717899999999998, 'loyalty_points': 350}",
+                "error": null,
+                "duration_ms": 25.269,
+                "memory_after": {
+                  "py_tracemalloc_current": 682448,
+                  "py_tracemalloc_peak": 686767
+                }
+              }
+            ],
+            "memory_before": {
+              "py_tracemalloc_current": 676109,
+              "py_tracemalloc_peak": 677775
+            },
+            "inputs_after": {
+              "name": "checkout",
+              "payload": {
+                "lines": [
+                  {
+                    "name": "'price_line'",
+                    "payload": "{'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}",
+                    "logged": "\"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\""
+                  },
+                  {
+                    "name": "'price_line'",
+                    "payload": "{'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}",
+                    "logged": "\"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\""
+                  },
+                  {
+                    "name": "'price_line'",
+                    "payload": "{'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}",
+                    "logged": "\"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\""
+                  }
+                ],
+                "total": 15.717899999999998,
+                "loyalty_points": 350
+              }
+            },
+            "output": {
+              "name": "checkout",
+              "payload": {
+                "lines": [
+                  "{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}",
+                  "{'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}",
+                  "{'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}"
+                ],
+                "total": 15.717899999999998,
+                "loyalty_points": 350
+              },
+              "logged": "[00:36:17] checkout: {'lines': [{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}, {'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}, {'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}], 'total': 15.717899999999998, 'loyalty_points': 350}"
+            },
+            "error": null,
+            "duration_ms": 51.317,
+            "memory_after": {
+              "py_tracemalloc_current": 688434,
+              "py_tracemalloc_peak": 690100
+            }
+          }
+        ],
+        "memory_before": {
+          "py_tracemalloc_current": 541756,
+          "py_tracemalloc_peak": 633710
+        },
+        "inputs_after": {
+          "lines": [
+            [
+              "coffee",
+              2
+            ],
+            [
+              "cookie",
+              4
+            ],
+            [
+              "tea",
+              1
+            ]
+          ],
+          "loyalty_points": 350
+        },
+        "output": {
+          "name": "checkout",
+          "payload": {
+            "lines": [
+              "{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}",
+              "{'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}",
+              "{'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}"
+            ],
+            "total": 15.717899999999998,
+            "loyalty_points": 350
+          },
+          "logged": "[00:36:17] checkout: {'lines': [{'name': 'price_line', 'payload': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}, 'logged': \"[00:36:16] price_line: {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}, 'tax': 1.323, 'total': 7.622999999999999, 'trace': {'product': {'name': 'coffee', 'price': 3.5}, 'discounts': {'name': 'coffee', 'qty': 2, 'subtotal': 6.3, 'discounts': {'bulk': 0, 'loyalty': 0.7000000000000001}}}}\"}, {'name': 'price_line', 'payload': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}, 'logged': \"[00:36:17] price_line: {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}, 'tax': 0.8568, 'total': 4.9368, 'trace': {'product': {'name': 'cookie', 'price': 1.2}, 'discounts': {'name': 'cookie', 'qty': 4, 'subtotal': 4.08, 'discounts': {'bulk': 0.24, 'loyalty': 0.48}}}}\"}, {'name': 'price_line', 'payload': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}, 'logged': \"[00:36:17] price_line: {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}, 'tax': 0.5480999999999999, 'total': 3.1580999999999997, 'trace': {'product': {'name': 'tea', 'price': 2.9}, 'discounts': {'name': 'tea', 'qty': 1, 'subtotal': 2.61, 'discounts': {'bulk': 0, 'loyalty': 0.29}}}}\"}], 'total': 15.717899999999998, 'loyalty_points': 350}"
+        },
+        "error": null,
+        "duration_ms": 2142.079,
+        "memory_after": {
+          "py_tracemalloc_current": 691405,
+          "py_tracemalloc_peak": 693221
+        }
+      }
+    ],
+    "memory_before": {
+      "py_tracemalloc_current": 408,
+      "py_tracemalloc_peak": 2074
+    },
+    "memory_after": {
+      "py_tracemalloc_current": 688490,
+      "py_tracemalloc_peak": 696387
+    }
+  }
+]

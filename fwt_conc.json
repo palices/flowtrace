@@ -1,0 +1,600 @@
+[
+  {
+    "id": 0,
+    "callable": "conc_demo.py",
+    "module": "__main__",
+    "called": "conc_demo.py",
+    "inputs": {},
+    "output": null,
+    "error": null,
+    "duration_ms": null,
+    "calls": [
+      {
+        "id": 2,
+        "callable": "run_pipeline",
+        "module": "conc_demo.services.runner",
+        "called": "run_pipeline",
+        "caller": "main::main",
+        "instance_id": null,
+        "inputs": {
+          "numbers": [
+            12,
+            10,
+            8,
+            6
+          ],
+          "names": [
+            "alpha",
+            "beta",
+            "gamma",
+            "delta"
+          ],
+          "log_path": "WindowsPath('conc_demo/output.log')"
+        },
+        "calls": [
+          {
+            "id": 3,
+            "callable": "run_cpu_batch",
+            "module": "conc_demo.tasks.cpu",
+            "called": "run_cpu_batch",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "nums": [
+                12,
+                10,
+                8,
+                6
+              ]
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2243659,
+              "py_tracemalloc_peak": 3043001
+            },
+            "inputs_after": {
+              "nums": [
+                12,
+                10,
+                8,
+                6
+              ]
+            },
+            "output": [
+              479001600,
+              3628800,
+              40320,
+              720
+            ],
+            "error": null,
+            "duration_ms": 3250.368,
+            "memory_after": {
+              "py_tracemalloc_current": 2393819,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 4,
+            "callable": "run_io_batch",
+            "module": "conc_demo.tasks.io",
+            "called": "run_io_batch",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "items": [
+                "alpha",
+                "beta",
+                "gamma",
+                "delta"
+              ],
+              "delay": 0.05
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2387206,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "items": [
+                "alpha",
+                "beta",
+                "gamma",
+                "delta"
+              ],
+              "delay": 0.05
+            },
+            "output": [
+              {
+                "name": "fake_io",
+                "payload": {
+                  "name": "'alpha'",
+                  "delay": "0.05"
+                },
+                "logged": "[00:40:49] fake_io: {'name': 'alpha', 'delay': 0.05}"
+              },
+              {
+                "name": "fake_io",
+                "payload": {
+                  "name": "'beta'",
+                  "delay": "0.05"
+                },
+                "logged": "[00:40:49] fake_io: {'name': 'beta', 'delay': 0.05}"
+              },
+              {
+                "name": "fake_io",
+                "payload": {
+                  "name": "'gamma'",
+                  "delay": "0.05"
+                },
+                "logged": "[00:40:49] fake_io: {'name': 'gamma', 'delay': 0.05}"
+              },
+              {
+                "name": "fake_io",
+                "payload": {
+                  "name": "'delta'",
+                  "delay": "0.05"
+                },
+                "logged": "[00:40:49] fake_io: {'name': 'delta', 'delay': 0.05}"
+              }
+            ],
+            "error": null,
+            "duration_ms": 908.579,
+            "memory_after": {
+              "py_tracemalloc_current": 2394395,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 5,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "cpu for 12 = 479001600"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2390105,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "cpu for 12 = 479001600"
+            },
+            "output": "[00:40:50] cpu for 12 = 479001600",
+            "error": null,
+            "duration_ms": 27.66,
+            "memory_after": {
+              "py_tracemalloc_current": 2390564,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 6,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "cpu for 10 = 3628800"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2391035,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "cpu for 10 = 3628800"
+            },
+            "output": "[00:40:50] cpu for 10 = 3628800",
+            "error": null,
+            "duration_ms": 40.328,
+            "memory_after": {
+              "py_tracemalloc_current": 2391516,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 7,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "cpu for 8 = 40320"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2391856,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "cpu for 8 = 40320"
+            },
+            "output": "[00:40:50] cpu for 8 = 40320",
+            "error": null,
+            "duration_ms": 34.062,
+            "memory_after": {
+              "py_tracemalloc_current": 2392334,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 8,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "cpu for 6 = 720"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2392640,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "cpu for 6 = 720"
+            },
+            "output": "[00:40:50] cpu for 6 = 720",
+            "error": null,
+            "duration_ms": 37.784,
+            "memory_after": {
+              "py_tracemalloc_current": 2393116,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 9,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "io for alpha delay=0.05"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2393374,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "io for alpha delay=0.05"
+            },
+            "output": "[00:40:50] io for alpha delay=0.05",
+            "error": null,
+            "duration_ms": 32.892,
+            "memory_after": {
+              "py_tracemalloc_current": 2393858,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 10,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "io for beta delay=0.05"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2394203,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "io for beta delay=0.05"
+            },
+            "output": "[00:40:50] io for beta delay=0.05",
+            "error": null,
+            "duration_ms": 32.716,
+            "memory_after": {
+              "py_tracemalloc_current": 2394686,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 11,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "io for gamma delay=0.05"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2395184,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "io for gamma delay=0.05"
+            },
+            "output": "[00:40:50] io for gamma delay=0.05",
+            "error": null,
+            "duration_ms": 34.61,
+            "memory_after": {
+              "py_tracemalloc_current": 2395908,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 12,
+            "callable": "log",
+            "module": "conc_demo.common.log",
+            "called": "log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "msg": "io for delta delay=0.05"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2396462,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "msg": "io for delta delay=0.05"
+            },
+            "output": "[00:40:50] io for delta delay=0.05",
+            "error": null,
+            "duration_ms": 29.687,
+            "memory_after": {
+              "py_tracemalloc_current": 2397314,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 13,
+            "callable": "save_log",
+            "module": "conc_demo.common.log",
+            "called": "save_log",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              "path": "WindowsPath('conc_demo/output.log')",
+              "lines": [
+                "[00:40:50] cpu for 12 = 479001600",
+                "[00:40:50] cpu for 10 = 3628800",
+                "[00:40:50] cpu for 8 = 40320",
+                "[00:40:50] cpu for 6 = 720",
+                "[00:40:50] io for alpha delay=0.05",
+                "[00:40:50] io for beta delay=0.05",
+                "[00:40:50] io for gamma delay=0.05",
+                "[00:40:50] io for delta delay=0.05"
+              ]
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2398200,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              "path": "WindowsPath('conc_demo/output.log')",
+              "lines": [
+                "[00:40:50] cpu for 12 = 479001600",
+                "[00:40:50] cpu for 10 = 3628800",
+                "[00:40:50] cpu for 8 = 40320",
+                "[00:40:50] cpu for 6 = 720",
+                "[00:40:50] io for alpha delay=0.05",
+                "[00:40:50] io for beta delay=0.05",
+                "[00:40:50] io for gamma delay=0.05",
+                "[00:40:50] io for delta delay=0.05"
+              ]
+            },
+            "output": null,
+            "error": null,
+            "duration_ms": 73.962,
+            "memory_after": {
+              "py_tracemalloc_current": 2399399,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 14,
+            "callable": "<genexpr>",
+            "module": "conc_demo.services.runner",
+            "called": "<genexpr>",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2400707,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "output": 0.05,
+            "error": null,
+            "duration_ms": 18.608,
+            "memory_after": {
+              "py_tracemalloc_current": 2401520,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 15,
+            "callable": "<genexpr>",
+            "module": "conc_demo.services.runner",
+            "called": "<genexpr>",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2402336,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "output": 0.05,
+            "error": null,
+            "duration_ms": 16.86,
+            "memory_after": {
+              "py_tracemalloc_current": 2403149,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 16,
+            "callable": "<genexpr>",
+            "module": "conc_demo.services.runner",
+            "called": "<genexpr>",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2403965,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "output": 0.05,
+            "error": null,
+            "duration_ms": 5.408,
+            "memory_after": {
+              "py_tracemalloc_current": 2404778,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 17,
+            "callable": "<genexpr>",
+            "module": "conc_demo.services.runner",
+            "called": "<genexpr>",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2405594,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "output": 0.05,
+            "error": null,
+            "duration_ms": 8.279,
+            "memory_after": {
+              "py_tracemalloc_current": 2406407,
+              "py_tracemalloc_peak": 3189649
+            }
+          },
+          {
+            "id": 18,
+            "callable": "<genexpr>",
+            "module": "conc_demo.services.runner",
+            "called": "<genexpr>",
+            "caller": "run_pipeline::run_pipeline",
+            "instance_id": null,
+            "inputs": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 2407223,
+              "py_tracemalloc_peak": 3189649
+            },
+            "inputs_after": {
+              ".0": "<list_iterator object at 0x00000182E330C4C0>"
+            },
+            "output": null,
+            "error": null,
+            "duration_ms": 15.061,
+            "memory_after": {
+              "py_tracemalloc_current": 2408036,
+              "py_tracemalloc_peak": 3189649
+            }
+          }
+        ],
+        "memory_before": {
+          "py_tracemalloc_current": 2242704,
+          "py_tracemalloc_peak": 3043001
+        },
+        "inputs_after": {
+          "numbers": [
+            12,
+            10,
+            8,
+            6
+          ],
+          "names": [
+            "alpha",
+            "beta",
+            "gamma",
+            "delta"
+          ],
+          "log_path": "WindowsPath('conc_demo/output.log')"
+        },
+        "output": {
+          "cpu": [
+            479001600,
+            3628800,
+            40320,
+            720
+          ],
+          "io": [
+            {
+              "name": "'fake_io'",
+              "payload": "{'name': 'alpha', 'delay': 0.05}",
+              "logged": "\"[00:40:49] fake_io: {'name': 'alpha', 'delay': 0.05}\""
+            },
+            {
+              "name": "'fake_io'",
+              "payload": "{'name': 'beta', 'delay': 0.05}",
+              "logged": "\"[00:40:49] fake_io: {'name': 'beta', 'delay': 0.05}\""
+            },
+            {
+              "name": "'fake_io'",
+              "payload": "{'name': 'gamma', 'delay': 0.05}",
+              "logged": "\"[00:40:49] fake_io: {'name': 'gamma', 'delay': 0.05}\""
+            },
+            {
+              "name": "'fake_io'",
+              "payload": "{'name': 'delta', 'delay': 0.05}",
+              "logged": "\"[00:40:49] fake_io: {'name': 'delta', 'delay': 0.05}\""
+            }
+          ],
+          "logfile": "conc_demo\\output.log",
+          "total": 482671440.2
+        },
+        "error": null,
+        "duration_ms": 4854.223,
+        "memory_after": {
+          "py_tracemalloc_current": 2410198,
+          "py_tracemalloc_peak": 3189649
+        }
+      }
+    ],
+    "memory_before": {
+      "py_tracemalloc_current": 408,
+      "py_tracemalloc_peak": 2074
+    },
+    "memory_after": {
+      "py_tracemalloc_current": 2407157,
+      "py_tracemalloc_peak": 3189649
+    }
+  }
+]

@@ -1,0 +1,803 @@
+[
+  {
+    "id": 0,
+    "callable": "basic_sample.py",
+    "module": "__main__",
+    "called": "basic_sample.py",
+    "inputs": {},
+    "output": null,
+    "error": null,
+    "duration_ms": null,
+    "calls": [
+      {
+        "id": 5,
+        "callable": "run_order_flow",
+        "module": "__main__",
+        "called": "run_order_flow",
+        "caller": "OrderService::OrderService",
+        "instance_id": null,
+        "inputs": {},
+        "calls": [
+          {
+            "id": 8,
+            "callable": "seed_inventory",
+            "module": "__main__",
+            "called": "seed_inventory",
+            "caller": "run_order_flow::run_order_flow",
+            "instance_id": null,
+            "inputs": {
+              "inventory": {
+                "_stock": {}
+              }
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 667427,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "inventory": {
+                "_stock": {
+                  "coffee": "20",
+                  "tea": "15",
+                  "cake": "10"
+                }
+              }
+            },
+            "output": null,
+            "error": null,
+            "duration_ms": 134.105,
+            "memory_after": {
+              "py_tracemalloc_current": 671569,
+              "py_tracemalloc_peak": 778018
+            }
+          },
+          {
+            "id": 16,
+            "callable": "create_items",
+            "module": "__main__",
+            "called": "create_items",
+            "caller": "run_order_flow::run_order_flow",
+            "instance_id": null,
+            "inputs": {},
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 677801,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {},
+            "output": [
+              {
+                "name": "'coffee'",
+                "price": "3.5",
+                "quantity": "2"
+              },
+              {
+                "name": "'cake'",
+                "price": "4.25",
+                "quantity": "1"
+              }
+            ],
+            "error": null,
+            "duration_ms": 5.01,
+            "memory_after": {
+              "py_tracemalloc_current": 679966,
+              "py_tracemalloc_peak": 778018
+            }
+          }
+        ],
+        "memory_before": {
+          "py_tracemalloc_current": 664253,
+          "py_tracemalloc_peak": 778018
+        },
+        "inputs_after": {},
+        "output": "Order for Ana Maria confirmed: $11.57",
+        "error": null,
+        "duration_ms": 851.119,
+        "memory_after": {
+          "py_tracemalloc_current": 714506,
+          "py_tracemalloc_peak": 778018
+        }
+      },
+      {
+        "id": 6,
+        "callable": "__instance__",
+        "module": "__main__",
+        "called": "Inventory",
+        "instance_id": 2116226982416,
+        "inputs": {},
+        "output": null,
+        "error": null,
+        "duration_ms": null,
+        "calls": [
+          {
+            "id": 9,
+            "callable": "add",
+            "module": "__main__",
+            "called": "Inventory",
+            "caller": "seed_inventory::seed_inventory",
+            "instance_id": 2116226982416,
+            "inputs": {
+              "item": "coffee",
+              "count": 20
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 668714,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "item": "coffee",
+              "count": 20
+            },
+            "output": 20,
+            "error": null,
+            "duration_ms": 31.832,
+            "memory_after": {
+              "py_tracemalloc_current": 669202,
+              "py_tracemalloc_peak": 778018
+            }
+          },
+          {
+            "id": 10,
+            "callable": "add",
+            "module": "__main__",
+            "called": "Inventory",
+            "caller": "seed_inventory::seed_inventory",
+            "instance_id": 2116226982416,
+            "inputs": {
+              "item": "tea",
+              "count": 15
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 669729,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "item": "tea",
+              "count": 15
+            },
+            "output": 15,
+            "error": null,
+            "duration_ms": 29.554,
+            "memory_after": {
+              "py_tracemalloc_current": 670217,
+              "py_tracemalloc_peak": 778018
+            }
+          },
+          {
+            "id": 11,
+            "callable": "add",
+            "module": "__main__",
+            "called": "Inventory",
+            "caller": "seed_inventory::seed_inventory",
+            "instance_id": 2116226982416,
+            "inputs": {
+              "item": "cake",
+              "count": 10
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 670744,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "item": "cake",
+              "count": 10
+            },
+            "output": 10,
+            "error": null,
+            "duration_ms": 28.795,
+            "memory_after": {
+              "py_tracemalloc_current": 671232,
+              "py_tracemalloc_peak": 778018
+            }
+          },
+          {
+            "id": 19,
+            "callable": "reserve",
+            "module": "__main__",
+            "called": "Inventory",
+            "caller": "OrderService::_reserve_items",
+            "instance_id": 2116226982416,
+            "inputs": {
+              "item": "coffee",
+              "count": 2
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 685526,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "item": "coffee",
+              "count": 2
+            },
+            "output": 2,
+            "error": null,
+            "duration_ms": 31.821,
+            "memory_after": {
+              "py_tracemalloc_current": 686254,
+              "py_tracemalloc_peak": 778018
+            }
+          },
+          {
+            "id": 20,
+            "callable": "reserve",
+            "module": "__main__",
+            "called": "Inventory",
+            "caller": "OrderService::_reserve_items",
+            "instance_id": 2116226982416,
+            "inputs": {
+              "item": "cake",
+              "count": 1
+            },
+            "calls": [],
+            "memory_before": {
+              "py_tracemalloc_current": 687019,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "item": "cake",
+              "count": 1
+            },
+            "output": 1,
+            "error": null,
+            "duration_ms": 33.768,
+            "memory_after": {
+              "py_tracemalloc_current": 687747,
+              "py_tracemalloc_peak": 778018
+            }
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "callable": "__instance__",
+        "module": "__main__",
+        "called": "PricingService",
+        "instance_id": 2116236044736,
+        "inputs": {
+          "tax_rate": 0.21
+        },
+        "output": null,
+        "error": null,
+        "duration_ms": null,
+        "calls": [
+          {
+            "id": 21,
+            "callable": "total_with_tax",
+            "module": "__main__",
+            "called": "PricingService",
+            "caller": "OrderService::place_order",
+            "instance_id": 2116236044736,
+            "inputs": {
+              "items": [
+                {
+                  "name": "'coffee'",
+                  "price": "3.5",
+                  "quantity": "2"
+                },
+                {
+                  "name": "'cake'",
+                  "price": "4.25",
+                  "quantity": "1"
+                }
+              ],
+              "tier": "gold"
+            },
+            "calls": [
+              {
+                "id": 22,
+                "callable": "subtotal",
+                "module": "__main__",
+                "called": "PricingService",
+                "caller": "PricingService::total_with_tax",
+                "instance_id": 2116236044736,
+                "inputs": {
+                  "items": [
+                    {
+                      "name": "'coffee'",
+                      "price": "3.5",
+                      "quantity": "2"
+                    },
+                    {
+                      "name": "'cake'",
+                      "price": "4.25",
+                      "quantity": "1"
+                    }
+                  ]
+                },
+                "calls": [
+                  {
+                    "id": 23,
+                    "callable": "<genexpr>",
+                    "module": "__main__",
+                    "called": "<genexpr>",
+                    "caller": "PricingService::subtotal",
+                    "instance_id": null,
+                    "inputs": {
+                      ".0": "<list_iterator object at 0x000001ECB98466E0>"
+                    },
+                    "calls": [],
+                    "memory_before": {
+                      "py_tracemalloc_current": 694281,
+                      "py_tracemalloc_peak": 778018
+                    },
+                    "inputs_after": {
+                      ".0": "<list_iterator object at 0x000001ECB98466E0>"
+                    },
+                    "output": 7.0,
+                    "error": null,
+                    "duration_ms": 15.735,
+                    "memory_after": {
+                      "py_tracemalloc_current": 695118,
+                      "py_tracemalloc_peak": 778018
+                    }
+                  },
+                  {
+                    "id": 24,
+                    "callable": "<genexpr>",
+                    "module": "__main__",
+                    "called": "<genexpr>",
+                    "caller": "PricingService::subtotal",
+                    "instance_id": null,
+                    "inputs": {
+                      ".0": "<list_iterator object at 0x000001ECB98466E0>"
+                    },
+                    "calls": [],
+                    "memory_before": {
+                      "py_tracemalloc_current": 696212,
+                      "py_tracemalloc_peak": 778018
+                    },
+                    "inputs_after": {
+                      ".0": "<list_iterator object at 0x000001ECB98466E0>"
+                    },
+                    "output": 4.25,
+                    "error": null,
+                    "duration_ms": 12.368,
+                    "memory_after": {
+                      "py_tracemalloc_current": 697049,
+                      "py_tracemalloc_peak": 778018
+                    }
+                  },
+                  {
+                    "id": 25,
+                    "callable": "<genexpr>",
+                    "module": "__main__",
+                    "called": "<genexpr>",
+                    "caller": "PricingService::subtotal",
+                    "instance_id": null,
+                    "inputs": {
+                      ".0": "<list_iterator object at 0x000001ECB98466E0>"
+                    },
+                    "calls": [],
+                    "memory_before": {
+                      "py_tracemalloc_current": 697863,
+                      "py_tracemalloc_peak": 778018
+                    },
+                    "inputs_after": {
+                      ".0": "<list_iterator object at 0x000001ECB98466E0>"
+                    },
+                    "output": null,
+                    "error": null,
+                    "duration_ms": 16.134,
+                    "memory_after": {
+                      "py_tracemalloc_current": 698676,
+                      "py_tracemalloc_peak": 778018
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 692347,
+                  "py_tracemalloc_peak": 778018
+                },
+                "inputs_after": {
+                  "items": [
+                    {
+                      "name": "'coffee'",
+                      "price": "3.5",
+                      "quantity": "2"
+                    },
+                    {
+                      "name": "'cake'",
+                      "price": "4.25",
+                      "quantity": "1"
+                    }
+                  ]
+                },
+                "output": 11.25,
+                "error": null,
+                "duration_ms": 86.904,
+                "memory_after": {
+                  "py_tracemalloc_current": 699241,
+                  "py_tracemalloc_peak": 778018
+                }
+              },
+              {
+                "id": 26,
+                "callable": "calculate_discount",
+                "module": "__main__",
+                "called": "calculate_discount",
+                "caller": "PricingService::total_with_tax",
+                "instance_id": null,
+                "inputs": {
+                  "total": 11.25,
+                  "tier": "gold"
+                },
+                "calls": [],
+                "memory_before": {
+                  "py_tracemalloc_current": 700064,
+                  "py_tracemalloc_peak": 778018
+                },
+                "inputs_after": {
+                  "total": 11.25,
+                  "tier": "gold"
+                },
+                "output": 1.6875,
+                "error": null,
+                "duration_ms": 15.882,
+                "memory_after": {
+                  "py_tracemalloc_current": 700816,
+                  "py_tracemalloc_peak": 778018
+                }
+              },
+              {
+                "id": 27,
+                "callable": "clamp",
+                "module": "__main__",
+                "called": "clamp",
+                "caller": "PricingService::total_with_tax",
+                "instance_id": null,
+                "inputs": {
+                  "value": 9.5625,
+                  "low": 0,
+                  "high": 11.25
+                },
+                "calls": [],
+                "memory_before": {
+                  "py_tracemalloc_current": 701727,
+                  "py_tracemalloc_peak": 778018
+                },
+                "inputs_after": {
+                  "value": 9.5625,
+                  "low": 0,
+                  "high": 11.25
+                },
+                "output": 9.5625,
+                "error": null,
+                "duration_ms": 31.476,
+                "memory_after": {
+                  "py_tracemalloc_current": 702455,
+                  "py_tracemalloc_peak": 778018
+                }
+              },
+              {
+                "id": 28,
+                "callable": "apply_tax",
+                "module": "__main__",
+                "called": "apply_tax",
+                "caller": "PricingService::total_with_tax",
+                "instance_id": null,
+                "inputs": {
+                  "amount": 9.5625,
+                  "rate": 0.21
+                },
+                "calls": [],
+                "memory_before": {
+                  "py_tracemalloc_current": 703270,
+                  "py_tracemalloc_peak": 778018
+                },
+                "inputs_after": {
+                  "amount": 9.5625,
+                  "rate": 0.21
+                },
+                "output": 11.57,
+                "error": null,
+                "duration_ms": 32.049,
+                "memory_after": {
+                  "py_tracemalloc_current": 704022,
+                  "py_tracemalloc_peak": 778018
+                }
+              }
+            ],
+            "memory_before": {
+              "py_tracemalloc_current": 690207,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "items": [
+                {
+                  "name": "'coffee'",
+                  "price": "3.5",
+                  "quantity": "2"
+                },
+                {
+                  "name": "'cake'",
+                  "price": "4.25",
+                  "quantity": "1"
+                }
+              ],
+              "tier": "gold"
+            },
+            "output": 11.57,
+            "error": null,
+            "duration_ms": 241.716,
+            "memory_after": {
+              "py_tracemalloc_current": 705043,
+              "py_tracemalloc_peak": 778018
+            }
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "callable": "__instance__",
+        "module": "__main__",
+        "called": "OrderService",
+        "instance_id": 2116236047376,
+        "inputs": {
+          "inventory": {
+            "_stock": {
+              "coffee": "20",
+              "tea": "15",
+              "cake": "10"
+            }
+          },
+          "pricing": {
+            "tax_rate": 0.21
+          }
+        },
+        "output": null,
+        "error": null,
+        "duration_ms": null,
+        "calls": [
+          {
+            "id": 17,
+            "callable": "place_order",
+            "module": "__main__",
+            "called": "OrderService",
+            "caller": "run_order_flow::run_order_flow",
+            "instance_id": 2116236047376,
+            "inputs": {
+              "customer": "  ana maria  ",
+              "items": [
+                {
+                  "name": "'coffee'",
+                  "price": "3.5",
+                  "quantity": "2"
+                },
+                {
+                  "name": "'cake'",
+                  "price": "4.25",
+                  "quantity": "1"
+                }
+              ],
+              "tier": "gold"
+            },
+            "calls": [
+              {
+                "id": 18,
+                "callable": "_reserve_items",
+                "module": "__main__",
+                "called": "OrderService",
+                "caller": "OrderService::place_order",
+                "instance_id": 2116236047376,
+                "inputs": {
+                  "items": [
+                    {
+                      "name": "'coffee'",
+                      "price": "3.5",
+                      "quantity": "2"
+                    },
+                    {
+                      "name": "'cake'",
+                      "price": "4.25",
+                      "quantity": "1"
+                    }
+                  ]
+                },
+                "calls": [],
+                "memory_before": {
+                  "py_tracemalloc_current": 683913,
+                  "py_tracemalloc_peak": 778018
+                },
+                "inputs_after": {
+                  "items": [
+                    {
+                      "name": "'coffee'",
+                      "price": "3.5",
+                      "quantity": "2"
+                    },
+                    {
+                      "name": "'cake'",
+                      "price": "4.25",
+                      "quantity": "1"
+                    }
+                  ]
+                },
+                "output": null,
+                "error": null,
+                "duration_ms": 93.58,
+                "memory_after": {
+                  "py_tracemalloc_current": 688624,
+                  "py_tracemalloc_peak": 778018
+                }
+              },
+              {
+                "id": 29,
+                "callable": "_build_confirmation",
+                "module": "__main__",
+                "called": "OrderService",
+                "caller": "OrderService::place_order",
+                "instance_id": 2116236047376,
+                "inputs": {
+                  "customer": "  ana maria  ",
+                  "total": 11.57
+                },
+                "calls": [
+                  {
+                    "id": 30,
+                    "callable": "normalize_name",
+                    "module": "__main__",
+                    "called": "normalize_name",
+                    "caller": "OrderService::_build_confirmation",
+                    "instance_id": null,
+                    "inputs": {
+                      "name": "  ana maria  "
+                    },
+                    "calls": [
+                      {
+                        "id": 31,
+                        "callable": "<genexpr>",
+                        "module": "__main__",
+                        "called": "<genexpr>",
+                        "caller": "normalize_name::normalize_name",
+                        "instance_id": null,
+                        "inputs": {
+                          ".0": "<list_iterator object at 0x000001ECB9846890>"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 709374,
+                          "py_tracemalloc_peak": 778018
+                        },
+                        "inputs_after": {
+                          ".0": "<list_iterator object at 0x000001ECB9846890>"
+                        },
+                        "output": "Ana",
+                        "error": null,
+                        "duration_ms": 20.996,
+                        "memory_after": {
+                          "py_tracemalloc_current": 710231,
+                          "py_tracemalloc_peak": 778018
+                        }
+                      },
+                      {
+                        "id": 32,
+                        "callable": "<genexpr>",
+                        "module": "__main__",
+                        "called": "<genexpr>",
+                        "caller": "normalize_name::normalize_name",
+                        "instance_id": null,
+                        "inputs": {
+                          ".0": "<list_iterator object at 0x000001ECB9846890>"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 711051,
+                          "py_tracemalloc_peak": 778018
+                        },
+                        "inputs_after": {
+                          ".0": "<list_iterator object at 0x000001ECB9846890>"
+                        },
+                        "output": "Maria",
+                        "error": null,
+                        "duration_ms": 15.826,
+                        "memory_after": {
+                          "py_tracemalloc_current": 711910,
+                          "py_tracemalloc_peak": 778018
+                        }
+                      },
+                      {
+                        "id": 33,
+                        "callable": "<genexpr>",
+                        "module": "__main__",
+                        "called": "<genexpr>",
+                        "caller": "normalize_name::normalize_name",
+                        "instance_id": null,
+                        "inputs": {
+                          ".0": "<list_iterator object at 0x000001ECB9846890>"
+                        },
+                        "calls": [],
+                        "memory_before": {
+                          "py_tracemalloc_current": 712730,
+                          "py_tracemalloc_peak": 778018
+                        },
+                        "inputs_after": {
+                          ".0": "<list_iterator object at 0x000001ECB9846890>"
+                        },
+                        "output": null,
+                        "error": null,
+                        "duration_ms": 11.767,
+                        "memory_after": {
+                          "py_tracemalloc_current": 713395,
+                          "py_tracemalloc_peak": 778018
+                        }
+                      }
+                    ],
+                    "memory_before": {
+                      "py_tracemalloc_current": 707255,
+                      "py_tracemalloc_peak": 778018
+                    },
+                    "inputs_after": {
+                      "name": "  ana maria  "
+                    },
+                    "output": "Ana Maria",
+                    "error": null,
+                    "duration_ms": 163.373,
+                    "memory_after": {
+                      "py_tracemalloc_current": 713095,
+                      "py_tracemalloc_peak": 778018
+                    }
+                  }
+                ],
+                "memory_before": {
+                  "py_tracemalloc_current": 705869,
+                  "py_tracemalloc_peak": 778018
+                },
+                "inputs_after": {
+                  "customer": "  ana maria  ",
+                  "total": 11.57
+                },
+                "output": "Order for Ana Maria confirmed: $11.57",
+                "error": null,
+                "duration_ms": 180.192,
+                "memory_after": {
+                  "py_tracemalloc_current": 713389,
+                  "py_tracemalloc_peak": 778018
+                }
+              }
+            ],
+            "memory_before": {
+              "py_tracemalloc_current": 681762,
+              "py_tracemalloc_peak": 778018
+            },
+            "inputs_after": {
+              "customer": "  ana maria  ",
+              "items": [
+                {
+                  "name": "'coffee'",
+                  "price": "3.5",
+                  "quantity": "2"
+                },
+                {
+                  "name": "'cake'",
+                  "price": "4.25",
+                  "quantity": "1"
+                }
+              ],
+              "tier": "gold"
+            },
+            "output": "Order for Ana Maria confirmed: $11.57",
+            "error": null,
+            "duration_ms": 569.824,
+            "memory_after": {
+              "py_tracemalloc_current": 714314,
+              "py_tracemalloc_peak": 778018
+            }
+          }
+        ]
+      }
+    ],
+    "memory_before": {
+      "py_tracemalloc_current": 408,
+      "py_tracemalloc_peak": 2074
+    },
+    "memory_after": {
+      "py_tracemalloc_current": 708623,
+      "py_tracemalloc_peak": 778018
+    }
+  }
+]
