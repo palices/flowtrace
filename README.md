@@ -1,5 +1,33 @@
 # FlowTrace
 
+FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
+
+## Basic flow
+1. Profile a script: `python flowtrace.py -s your_script.py -o flowtrace.json`
+2. Generate the viewer: `python flowtrace_visual.py -i flowtrace.json -o flowtrace.html`
+3. Open `flowtrace.html` and browse:
+   - Search terms: opens the matching node in a floating panel.
+   - Expand/collapse nodes; open calls.
+   - Controls to show/hide badges, Python internals, language (es/en), and light/dark mode.
+
+## Features
+- Captures inputs/outputs, caller, module, duration, and errors.
+- Groups instances and nested calls while preserving hierarchy.
+- Search with highlighting and floating panels; option to hide Python internals.
+- Dark mode by default, quick controls, and multi-language.
+
+## Included examples
+- `script.py` basic example.
+- `complex_app.py` with modules `demo/...` (prices, taxes, discounts).
+- `conc_demo.py` with CPU-bound (multiprocessing) and IO-bound (threads) to view concurrent traces.
+
+## Backlog / ideas
+- Filters by module/class/time.
+- Export filtered views.
+- Integration with spans/telemetry.
+
+---
+
 FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
 
 ## Flujo basico
