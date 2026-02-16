@@ -10,9 +10,13 @@ from pathlib import Path
 
 
 class TraceradoProfiler:
-    def __init__(self, script_path, output_path):
+    def __init__(self, script_path, output_path, script_args=None):
         self.script_path = Path(script_path).resolve()
         self.output_path = Path(output_path)
+        # argumentos que se pasaran al script perfilado (por ejemplo: -- foo 1 bar)
+        self.script_args = list(script_args or [])
+        if self.script_args and self.script_args[0] == "--":
+            self.script_args = self.script_args[1:]
         self.records = []
         self._inflight = {}
         self._stack = []
@@ -128,8 +132,6 @@ class TraceradoProfiler:
         return inspect.isclass(obj)
 
     def _is_class_definition(self, frame):
-        if frame.f_globals.get("__name__") != "__main__":
-            return False
         if "__module__" not in frame.f_locals or "__qualname__" not in frame.f_locals:
             return False
         return frame.f_code.co_name == frame.f_locals.get("__qualname__")
@@ -245,9 +247,13 @@ class TraceradoProfiler:
         self._tracemalloc_enabled = True
         self._root_entry["memory_before"] = self._memory_snapshot()
         sys.setprofile(self._profile)
+        old_argv = sys.argv
+        # emula la ejecucion normal del script, permitiendo argumentos personalizados
+        sys.argv = [str(self.script_path)] + self.script_args
         try:
             runpy.run_path(str(self.script_path), run_name="__main__")
         finally:
+            sys.argv = old_argv
             sys.setprofile(None)
             self._root_entry["memory_after"] = self._memory_snapshot()
             if self._tracemalloc_enabled:
@@ -279,8 +285,7 @@ class TraceradoProfiler:
 
     def _is_class_definition_node(self, node):
         return (
-            node.get("module") == "__main__"
-            and node.get("callable") == node.get("called")
+            node.get("callable") == node.get("called")
             and not node.get("inputs")
             and node.get("output") is None
             and node.get("error") is None
@@ -302,12 +307,17 @@ def _parse_args():
         default="flowtrace.json",
         help="Ruta del JSON de salida",
     )
-    return parser.parse_args()
+    args, unknown = parser.parse_known_args()
+    # cualquier argumento no reconocido se pasa al script perfilado
+    args.script_args = list(unknown)
+    if args.script_args and args.script_args[0] == "--":
+        args.script_args = args.script_args[1:]
+    return args
 
 
 def main():
     args = _parse_args()
-    profiler = TraceradoProfiler(args.script, args.output)
+    profiler = TraceradoProfiler(args.script, args.output, args.script_args)
     profiler.run()
 
 

@@ -1,7 +1,7 @@
-from demo.common.logger import trace_call
-from demo.repository.products import get_product
-from demo.pricing.discounts import apply_discounts
-from demo.pricing.tax import apply_tax_line
+from samples.complex.demo.common.logger import trace_call
+from samples.complex.demo.repository.products import get_product
+from samples.complex.demo.pricing.discounts import apply_discounts
+from samples.complex.demo.pricing.tax import apply_tax_line
 
 
 def price_line(name: str, qty: int, loyalty_points: int = 0) -> dict:

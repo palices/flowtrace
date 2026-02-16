@@ -1,4 +1,4 @@
-from demo.services.checkout import checkout
+from samples.complex.demo.services import checkout
 
 
 def main():

@@ -1,4 +1,4 @@
-from demo.common.logger import trace_call
+from samples.complex.demo.common.logger import trace_call
 
 PRODUCTS = {
     'coffee': {'price': 3.5},

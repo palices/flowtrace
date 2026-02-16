@@ -1,5 +1,5 @@
-from demo.common.logger import trace_call
-from demo.common.math_utils import clamp
+from samples.complex.demo.common.logger import trace_call
+from samples.complex.demo.common.math_utils import clamp
 
 def vat(amount: float, rate: float = 0.21) -> float:
     taxed = amount * rate

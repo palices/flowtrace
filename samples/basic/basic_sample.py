@@ -1,3 +1,4 @@
+import argparse
 from dataclasses import dataclass
 
 
@@ -84,22 +85,48 @@ def seed_inventory(inventory):
     inventory.add("cake", 10)
 
 
-def create_items():
-    return [
-        Item(name="coffee", price=3.5, quantity=2),
-        Item(name="cake", price=4.25, quantity=1),
-    ]
+def create_items(order_quantities):
+    price_map = {"coffee": 3.5, "tea": 2.1, "cake": 4.25}
+    items = []
+    for name, qty in order_quantities.items():
+        if qty <= 0:
+            continue
+        items.append(Item(name=name, price=price_map[name], quantity=qty))
+    return items
 
 
-def run_order_flow():
+def run_order_flow(customer, tier, order_quantities, tax_rate=0.21):
     inventory = Inventory()
     seed_inventory(inventory)
-    pricing = PricingService(tax_rate=0.21)
+    pricing = PricingService(tax_rate=tax_rate)
     service = OrderService(inventory, pricing)
-    items = create_items()
-    return service.place_order("  ana maria  ", items, tier="gold")
+    items = create_items(order_quantities)
+    return service.place_order(customer, items, tier=tier)
+
+
+def parse_cli_args():
+    parser = argparse.ArgumentParser(description="Basic FlowTrace sample order flow")
+    parser.add_argument("--customer", default="ana maria", help="Nombre del cliente")
+    parser.add_argument(
+        "--tier",
+        choices=["gold", "silver", "none"],
+        default="gold",
+        help="Nivel de descuento",
+    )
+    parser.add_argument("--coffee", type=int, default=2, help="Cantidad de cafes")
+    parser.add_argument("--cake", type=int, default=1, help="Cantidad de tortas")
+    parser.add_argument("--tea", type=int, default=0, help="Cantidad de tes")
+    parser.add_argument("--tax", type=float, default=0.21, help="Tasa de IVA/Impuesto")
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
-    confirmation = run_order_flow()
+    args = parse_cli_args()
+    order_quantities = {"coffee": args.coffee, "cake": args.cake, "tea": args.tea}
+    confirmation = run_order_flow(
+        customer=args.customer,
+        tier=args.tier,
+        order_quantities=order_quantities,
+        tax_rate=args.tax,
+    )
     print(confirmation)
