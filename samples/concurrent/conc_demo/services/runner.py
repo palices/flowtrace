@@ -1,7 +1,7 @@
 from pathlib import Path
-from conc_demo.tasks.cpu import run_cpu_batch
-from conc_demo.tasks.io import run_io_batch
-from conc_demo.common.log import log, save_log
+from samples.concurrent.conc_demo.tasks.cpu import run_cpu_batch
+from samples.concurrent.conc_demo.tasks.io import run_io_batch
+from samples.concurrent.conc_demo.common.log import log, save_log
 
 
 def run_pipeline(numbers: list[int], names: list[str], log_path: Path) -> dict:
