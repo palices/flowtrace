@@ -258,6 +258,14 @@ class TraceradoProfiler:
             exc_raised = exc
             self._root_entry["error"] = repr(exc)
             self._root_entry["output"] = None
+            # marca como error cualquier frame inflight (p.ej. validate_config)
+            now = time.time()
+            for entry, started in list(self._inflight.values()):
+                entry["output"] = None
+                entry["error"] = repr(exc)
+                entry["duration_ms"] = round((now - started) * 1000, 3)
+                entry["memory_after"] = self._memory_snapshot()
+            self._propagate_error(self._root_entry, repr(exc))
         finally:
             sys.argv = old_argv
             sys.setprofile(None)
@@ -291,14 +299,15 @@ class TraceradoProfiler:
             pruned.append(child)
         node["calls"] = pruned
 
+    def _propagate_error(self, node, exc_repr):
+        if node.get("output") is None and node.get("error") is None:
+            node["error"] = exc_repr
+        for child in node.get("calls", []):
+            self._propagate_error(child, exc_repr)
+
     def _is_class_definition_node(self, node):
-        return (
-            node.get("callable") == node.get("called")
-            and not node.get("inputs")
-            and node.get("output") is None
-            and node.get("error") is None
-            and node.get("callable") not in ("__main__", "__instance__")
-        )
+        # class definitions ya se excluyeron en _is_class_definition del tracer
+        return False
 
 
 def _parse_args():
