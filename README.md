@@ -68,6 +68,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - `conc_demo.py` con CPU-bound (multiproceso) e IO-bound (hilos) para ver trazas concurrentes.
 - `basic_positional_sample.py` muestra el mismo flujo usando argumentos posicionales.
 - `error_sample.py` falla adrede (config faltante) para ver el badge de error.
+- `error_internal_sample.py` falla dentro de una llamada interna (`validate_config`) para ver errores anidados.
 
 ## Pendientes / ideas
 - Filtros por mdulo/clase/tiempo.
