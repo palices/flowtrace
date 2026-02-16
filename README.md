@@ -29,6 +29,7 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - `complex_app.py` with modules `demo/...` (prices, taxes, discounts).
 - `conc_demo.py` with CPU-bound (multiprocessing) and IO-bound (threads) to view concurrent traces.
 - `basic_positional_sample.py` shows the same flow using positional arguments.
+- `error_sample.py` intentionally fails (missing config) to show the error badge.
 
 ## Backlog / ideas
 - Filters by module/class/time.
@@ -66,6 +67,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - `complex_app.py` con modulos `demo/...` (precios, impuestos, descuentos).
 - `conc_demo.py` con CPU-bound (multiproceso) e IO-bound (hilos) para ver trazas concurrentes.
 - `basic_positional_sample.py` muestra el mismo flujo usando argumentos posicionales.
+- `error_sample.py` falla adrede (config faltante) para ver el badge de error.
 
 ## Pendientes / ideas
 - Filtros por mdulo/clase/tiempo.

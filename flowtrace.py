@@ -210,8 +210,9 @@ class TraceradoProfiler:
         entry, started = self._inflight[frame_id]
         if event == "return":
             entry["inputs_after"] = self._capture_inputs(frame)
-            entry["output"] = self._serialize(arg)
-            entry["error"] = None
+            if entry.get("error") is None:
+                entry["output"] = self._serialize(arg)
+                entry["error"] = None
             entry["duration_ms"] = round((time.time() - started) * 1000, 3)
             entry["memory_after"] = self._memory_snapshot()
             self._inflight.pop(frame_id, None)
@@ -250,8 +251,13 @@ class TraceradoProfiler:
         old_argv = sys.argv
         # emula la ejecucion normal del script, permitiendo argumentos personalizados
         sys.argv = [str(self.script_path)] + self.script_args
+        exc_raised: BaseException | None = None
         try:
             runpy.run_path(str(self.script_path), run_name="__main__")
+        except BaseException as exc:  # capturamos para reflejar error en la raiz
+            exc_raised = exc
+            self._root_entry["error"] = repr(exc)
+            self._root_entry["output"] = None
         finally:
             sys.argv = old_argv
             sys.setprofile(None)
@@ -263,6 +269,8 @@ class TraceradoProfiler:
                 json.dumps(self.records, indent=2, ensure_ascii=True),
                 encoding="utf-8",
             )
+        if exc_raised:
+            raise exc_raised
 
     def _prune_calls(self, node):
         pruned = []
