@@ -2,6 +2,9 @@
 
 FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
 
+![FlowTrace overview](images/flowtrace.jpg)
+![Call details panel](images/flowtrace_calls.jpg)
+
 ## Basic flow
 1. Profile a script: `python flowtrace.py -s your_script.py -o flowtrace.json`
 2. Generate the viewer: `python flowtrace_visual.py -i flowtrace.json -o flowtrace.html`
@@ -29,6 +32,9 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 ---
 
 FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
+
+![Vista general de FlowTrace](images/flowtrace.jpg)
+![Panel de detalle de llamadas](images/flowtrace_calls.jpg)
 
 ## Flujo basico
 1. Perfilar un script: `python flowtrace.py -s tu_script.py -o flowtrace.json`
