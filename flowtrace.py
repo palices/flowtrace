@@ -139,6 +139,8 @@ class TraceradoProfiler:
         return inspect.isclass(obj)
 
     def _is_class_definition(self, frame):
+        if frame.f_globals.get("__name__") != "__main__":
+            return False
         if "__module__" not in frame.f_locals or "__qualname__" not in frame.f_locals:
             return False
         return frame.f_code.co_name == frame.f_locals.get("__qualname__")
@@ -356,8 +358,14 @@ class TraceradoProfiler:
             time.sleep(self._flush_interval)
 
     def _is_class_definition_node(self, node):
-        # class definitions ya se excluyeron en _is_class_definition del tracer
-        return False
+        return (
+            node.get("module") == "__main__"
+            and node.get("callable") == node.get("called")
+            and not node.get("inputs")
+            and node.get("output") is None
+            and node.get("error") is None
+            and node.get("callable") not in ("__main__", "__instance__")
+        )
 
 
 def _parse_args():
