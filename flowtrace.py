@@ -342,7 +342,7 @@ class TraceradoProfiler:
         self._last_flush = now
         if log:
             sys.stderr.write(
-                f"[FlowTrace] Guardando snapshot (callable={current_call}) en {self.output_path}\n"
+                f"[FlowTrace] Writing snapshot (callable={current_call}) to {self.output_path}\n"
             )
             sys.stderr.flush()
         self._write_output(snapshot)
