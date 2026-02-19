@@ -11,7 +11,18 @@ from pathlib import Path
 
 
 class TraceradoProfiler:
-    def __init__(self, script_path, output_path, script_args=None):
+    def __init__(
+        self,
+        script_path,
+        output_path,
+        script_args=None,
+        flush_interval=1.0,
+        flush_every_call=False,
+        log_flushes=False,
+        capture_memory=False,
+        capture_inputs=True,
+        enable_tracemalloc=False,
+    ):
         self.script_path = Path(script_path).resolve()
         self.output_path = Path(output_path)
         # argumentos que se pasaran al script perfilado (por ejemplo: -- foo 1 bar)
@@ -43,8 +54,18 @@ class TraceradoProfiler:
         self._stop_flush = threading.Event()
         self._flush_thread = None
         self._last_seen_callable = None
+        self._flush_interval = float(flush_interval)
+        self._flush_every_call = flush_every_call
+        self._log_flushes = log_flushes
+        self._dirty = False
+        self._run_started = None
+        self._capture_memory = capture_memory
+        self._capture_inputs_enabled = capture_inputs
+        self._enable_tracemalloc = enable_tracemalloc
 
     def _memory_snapshot(self):
+        if not self._capture_memory:
+            return {}
         snapshot = {}
         try:
             import psutil  # type: ignore
@@ -94,6 +115,8 @@ class TraceradoProfiler:
             values[args.keywords] = frame.f_locals.get(args.keywords)
         values.pop("self", None)
         values.pop("cls", None)
+        if not self._capture_inputs_enabled:
+            return {}
         return {key: self._serialize(val) for key, val in values.items()}
 
     def _get_class_name(self, frame):
@@ -212,7 +235,10 @@ class TraceradoProfiler:
                 self.records.append(entry)
             self._stack.append(entry)
             entry["memory_before"] = self._memory_snapshot()
-            self._maybe_flush(force=True, current=entry["callable"], log=True)
+            self._dirty = True
+            self._maybe_flush(
+                force=self._flush_every_call, current=entry["callable"], log=False
+            )
             return
 
         if frame_id not in self._inflight:
@@ -229,7 +255,10 @@ class TraceradoProfiler:
             self._inflight.pop(frame_id, None)
             if self._stack and self._stack[-1] is entry:
                 self._stack.pop()
-            self._maybe_flush(force=True, current=entry["callable"], log=True)
+            self._dirty = True
+            self._maybe_flush(
+                force=self._flush_every_call, current=entry["callable"], log=False
+            )
         elif event == "exception":
             exc_type, exc_value, _ = arg
             entry["inputs_after"] = self._capture_inputs(frame)
@@ -240,7 +269,10 @@ class TraceradoProfiler:
             self._inflight.pop(frame_id, None)
             if self._stack and self._stack[-1] is entry:
                 self._stack.pop()
-            self._maybe_flush(force=True, current=entry["callable"], log=True)
+            self._dirty = True
+            self._maybe_flush(
+                force=self._flush_every_call, current=entry["callable"], log=False
+            )
 
     def run(self):
         script_name = self.script_path.name
@@ -257,10 +289,19 @@ class TraceradoProfiler:
         }
         self.records = [self._root_entry]
         self._stack = [self._root_entry]
-        tracemalloc.start(10)
-        self._tracemalloc_enabled = True
+        self._dirty = True
+        if self._enable_tracemalloc and self._capture_memory:
+            tracemalloc.start(10)
+            self._tracemalloc_enabled = True
+        else:
+            self._tracemalloc_enabled = False
+        self._run_started = time.perf_counter()
         self._root_entry["memory_before"] = self._memory_snapshot()
-        self._maybe_flush(force=True, current=self._root_entry.get("callable"), log=True)  # snapshot inicial
+        self._maybe_flush(
+            force=True,
+            current=self._root_entry.get("callable"),
+            log=self._log_flushes,
+        )  # snapshot inicial
         sys.setprofile(self._profile)
         old_argv = sys.argv
         # emula la ejecucion normal del script, permitiendo argumentos personalizados
@@ -268,8 +309,9 @@ class TraceradoProfiler:
         exc_raised: BaseException | None = None
         # lanzar thread que flushea cada _flush_interval
         self._stop_flush.clear()
-        self._flush_thread = threading.Thread(target=self._flush_loop, daemon=True)
-        self._flush_thread.start()
+        if self._flush_interval > 0:
+            self._flush_thread = threading.Thread(target=self._flush_loop, daemon=True)
+            self._flush_thread.start()
         try:
             runpy.run_path(str(self.script_path), run_name="__main__")
         except BaseException as exc:  # capturamos para reflejar error en la raiz
@@ -287,14 +329,26 @@ class TraceradoProfiler:
         finally:
             sys.argv = old_argv
             sys.setprofile(None)
+            total_ms = (
+                round((time.perf_counter() - self._run_started) * 1000, 3)
+                if self._run_started is not None
+                else None
+            )
+            self._root_entry["duration_ms"] = total_ms
             self._root_entry["memory_after"] = self._memory_snapshot()
             if self._tracemalloc_enabled:
                 tracemalloc.stop()
             self._prune_calls(self._root_entry)
-            self._maybe_flush(force=True)
+            self._dirty = True
+            self._maybe_flush(force=True, log=self._log_flushes)
             self._stop_flush.set()
             if self._flush_thread:
                 self._flush_thread.join(timeout=1)
+            if total_ms is not None:
+                sys.stderr.write(
+                    f"[FlowTrace] Profiling finished in {total_ms/1000:.3f}s (script={self.script_path.name})\n"
+                )
+                sys.stderr.flush()
             print()
         if exc_raised:
             raise exc_raised
@@ -329,19 +383,26 @@ class TraceradoProfiler:
             f.write(payload)
             f.flush()
 
-    def _maybe_flush(self, force=False, current=None, log=False):
+    def _maybe_flush(self, force=False, current=None, log=None):
+        if log is None:
+            log = self._log_flushes
         now = time.time()
-        if not force and now - self._last_flush < self._flush_interval:
+        if not force and (not self._dirty or now - self._last_flush < self._flush_interval):
             return
         with self._write_lock:
-            snapshot = json.dumps(self.records, indent=2, ensure_ascii=True)
+            if not force and (not self._dirty or now - self._last_flush < self._flush_interval):
+                return
+            snapshot = json.dumps(
+                self.records, ensure_ascii=True, separators=(",", ":")
+            )
             current_call = (
                 current
                 or (f"{self._stack[-1].get('module','')}::{self._stack[-1].get('callable','')}" if self._stack else None)
                 or self._last_seen_callable
                 or self._root_entry.get("callable", "")
             )
-        self._last_flush = now
+            self._last_flush = now
+            self._dirty = False
         if log:
             sys.stderr.write(
                 f"[FlowTrace] Writing snapshot (callable={current_call}) to {self.output_path}\n"
@@ -355,7 +416,7 @@ class TraceradoProfiler:
                 self._maybe_flush(log=False)
             except Exception:
                 pass
-            time.sleep(self._flush_interval)
+            self._stop_flush.wait(self._flush_interval)
 
     def _is_class_definition_node(self, node):
         return (
@@ -382,6 +443,42 @@ def _parse_args():
         default="flowtrace.json",
         help="Ruta del JSON de salida",
     )
+    parser.add_argument(
+        "--flush-interval",
+        type=float,
+        default=1.0,
+        help="Intervalo (s) entre flusheos en background; <=0 desactiva el flush periodico",
+    )
+    parser.add_argument(
+        "--flush-every-call",
+        action="store_true",
+        help="Forzar flush en cada evento (compatible hacia atras, mas lento)",
+    )
+    parser.add_argument(
+        "--log-flushes",
+        action="store_true",
+        help="Escribir en stderr cada flush realizado",
+    )
+    parser.add_argument(
+        "--with-memory",
+        action="store_true",
+        help="Capturar snapshots de memoria (psutil/tracemalloc); desactivado por defecto",
+    )
+    parser.add_argument(
+        "--no-memory",
+        action="store_true",
+        help="No capturar snapshots de memoria (psutil/tracemalloc)",
+    )
+    parser.add_argument(
+        "--no-tracemalloc",
+        action="store_true",
+        help="Desactivar tracemalloc incluso si se captura memoria",
+    )
+    parser.add_argument(
+        "--skip-inputs",
+        action="store_true",
+        help="No registrar inputs/outputs de llamadas (reduce serializacion)",
+    )
     args, unknown = parser.parse_known_args()
     # cualquier argumento no reconocido se pasa al script perfilado
     args.script_args = list(unknown)
@@ -392,7 +489,19 @@ def _parse_args():
 
 def main():
     args = _parse_args()
-    profiler = TraceradoProfiler(args.script, args.output, args.script_args)
+    capture_memory = args.with_memory and not args.no_memory
+    enable_tracemalloc = capture_memory and not args.no_tracemalloc
+    profiler = TraceradoProfiler(
+        args.script,
+        args.output,
+        args.script_args,
+        flush_interval=args.flush_interval,
+        flush_every_call=args.flush_every_call,
+        log_flushes=args.log_flushes,
+        capture_memory=capture_memory,
+        capture_inputs=not args.skip_inputs,
+        enable_tracemalloc=enable_tracemalloc,
+    )
     profiler.run()
 
 

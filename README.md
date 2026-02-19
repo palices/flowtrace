@@ -23,6 +23,28 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - Groups instances and nested calls while preserving hierarchy.
 - Search with highlighting and floating panels; option to hide Python internals.
 - Dark mode by default, quick controls, and multi-language.
+- Performance knobs: `--flush-interval` (seconds, <=0 disables background flush), `--flush-every-call` (legacy, slower), `--log-flushes` (stderr).
+- Overhead controls: memoria desactivada por defecto; habilita con `--with-memory` (usa psutil + tracemalloc), o combina `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
+- Root entry now records total runtime; STDERR line: `[FlowTrace] Profiling finished in X.XXXs (script=...)`.
+
+## CLI options
+- `-s/--script` (required): target script path.
+- `-o/--output`: JSON output path (default `flowtrace.json`).
+- `--flush-interval`: seconds between background flushes; `<=0` disables thread (default `1.0`).
+- `--flush-every-call`: force flush on every event (slow; legacy).
+- `--log-flushes`: log each flush to stderr.
+- `--with-memory`: enable memory snapshots (psutil + tracemalloc). Default is off; expect slower runs when enabled.
+- `--no-memory`: disable memory snapshots.
+- `--no-tracemalloc`: keep psutil but skip tracemalloc.
+- `--skip-inputs`: do not serialize call inputs/outputs.
+- Any other args are forwarded to the profiled script.
+
+### Usage examples
+- Default fast run: `python flowtrace.py -s samples/basic/basic_sample.py -o flowtrace.json`
+- With memory metrics: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --flush-interval 2.0`
+- Minimal overhead: `python flowtrace.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
+- Legacy per-call flush with logs: `python flowtrace.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
+- Memory via psutil only: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
 
 ## Included examples
 - `script.py` basic example.
@@ -61,6 +83,28 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - Agrupa instancias y llamadas anidadas preservando jerarquia.
 - Buscador con resaltado y paneles flotantes; opcion para ocultar internals de Python.
 - Modo oscuro por defecto, controles rapidos y multilenguaje.
+- Ajustes de performance: `--flush-interval` (segundos, <=0 desactiva flush en background), `--flush-every-call` (modo anterior, mas lento), `--log-flushes` (stderr).
+- Controles de overhead: memoria viene desactivada por defecto; `--with-memory` la habilita (psutil + tracemalloc), combinable con `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
+- La llamada raiz registra el tiempo total; se imprime en STDERR `[FlowTrace] Profiling finished in X.XXXs (script=...)`.
+
+## Opciones CLI
+- `-s/--script` (obligatorio): ruta del script a perfilar.
+- `-o/--output`: ruta del JSON de salida (por defecto `flowtrace.json`).
+- `--flush-interval`: segundos entre flushes en background; `<=0` desactiva el hilo (por defecto `1.0`).
+- `--flush-every-call`: fuerza flush en cada evento (lento; legado).
+- `--log-flushes`: loguea cada flush a stderr.
+- `--with-memory`: habilita snapshots de memoria (psutil + tracemalloc). Por defecto está apagado; al activarlo las corridas serán más lentas.
+- `--no-memory`: desactiva snapshots de memoria.
+- `--no-tracemalloc`: deja psutil pero omite tracemalloc.
+- `--skip-inputs`: no serializa inputs/outputs de las llamadas.
+- Cualquier otro argumento se reenvía al script perfilado.
+
+### Ejemplos de uso
+- Ejecución rápida por defecto: `python flowtrace.py -s samples/basic/basic_sample.py -o flowtrace.json`
+- Con métricas de memoria: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --flush-interval 2.0`
+- Overhead mínimo: `python flowtrace.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
+- Flush por llamada con logs: `python flowtrace.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
+- Solo psutil (sin tracemalloc): `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
 
 ## Ejemplos incluidos
 - `script.py` ejemplo basico.
