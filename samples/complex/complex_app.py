@@ -1,4 +1,12 @@
-from samples.complex.demo.services import checkout
+import sys
+from pathlib import Path
+
+# ensure project root is on sys.path when executed directly
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from samples.complex.demo.services.checkout import checkout
 
 
 def main():

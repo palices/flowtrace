@@ -1,6 +1,6 @@
 import time
 from concurrent.futures import ThreadPoolExecutor
-from samples.complex.demo.common import trace_call
+from samples.complex.demo.common.logger import trace_call
 
 
 def fake_io(name: str, delay: float = 0.1) -> dict:
