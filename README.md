@@ -5,6 +5,13 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 ![FlowTrace overview](images/flowtrace.jpg)
 ![Call details panel](images/flowtrace_calls.jpg)
 
+## Quick start (3 steps)
+1. Capture the complex sample to JSON: `python flowtrace.py -s samples/complex/complex_app.py -o flowtrace_complex.json`
+2. Render the HTML viewer: `python flowtrace_visual.py -i flowtrace_complex.json -o flowtrace_complex.html`
+![Call details panel](images/flowtrace_visual.jpg)
+3. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i flowtrace_complex.json --endpoint http://localhost:4318/v1/traces --service flowtrace-complex`
+![Call details panel](images/flowtrace_to_otlp_menu.jpg)
+![Call details panel](images/flowtrace_to_otlp_spans.jpg)
 ## Basic flow
 1. Profile a script: `python flowtrace.py -s your_script.py -o flowtrace.json`
 2. Generate the viewer: `python flowtrace_visual.py -i flowtrace.json -o flowtrace.html`
@@ -26,6 +33,7 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - Performance knobs: `--flush-interval` (seconds, <=0 disables background flush), `--flush-every-call` (legacy, slower), `--log-flushes` (stderr).
 - Overhead controls: memoria desactivada por defecto; habilita con `--with-memory` (usa psutil + tracemalloc), o combina `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
 - Root entry now records total runtime; STDERR line: `[FlowTrace] Profiling finished in X.XXXs (script=...)`.
+- Export existing traces to OTLP/Jaeger via `export_otlp.py`, with span names enriched by module and instance id to make nested calls distinct in Jaeger UI.
 
 ## CLI options
 - `-s/--script` (required): target script path.
@@ -37,6 +45,7 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - `--no-memory`: disable memory snapshots.
 - `--no-tracemalloc`: keep psutil but skip tracemalloc.
 - `--skip-inputs`: do not serialize call inputs/outputs.
+- OTLP export (optional, requires `opentelemetry-*`): `--export-otlp-endpoint http://localhost:4318/v1/traces`, `--export-otlp-service myapp`, repeat `--export-otlp-header key=value` for extra headers.
 - Any other args are forwarded to the profiled script.
 
 ### Usage examples
@@ -45,6 +54,9 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - Minimal overhead: `python flowtrace.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
 - Legacy per-call flush with logs: `python flowtrace.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
 - Memory via psutil only: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
+- Export to OTLP/HTTP: `python flowtrace.py -s samples/basic/basic_sample.py --export-otlp-endpoint http://localhost:4318/v1/traces --export-otlp-service flowtrace-sample`
+- Export a saved trace to Jaeger (OTLP/HTTP, port 4318): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample`
+- Export with custom headers (auth/tenant): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
 
 ## Included examples
 - `script.py` basic example.
@@ -86,6 +98,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - Ajustes de performance: `--flush-interval` (segundos, <=0 desactiva flush en background), `--flush-every-call` (modo anterior, mas lento), `--log-flushes` (stderr).
 - Controles de overhead: memoria viene desactivada por defecto; `--with-memory` la habilita (psutil + tracemalloc), combinable con `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
 - La llamada raiz registra el tiempo total; se imprime en STDERR `[FlowTrace] Profiling finished in X.XXXs (script=...)`.
+- Export de trazas existentes a OTLP/Jaeger con `export_otlp.py`; los spans incluyen módulo e id de instancia para distinguir llamadas anidadas en Jaeger.
 
 ## Opciones CLI
 - `-s/--script` (obligatorio): ruta del script a perfilar.
@@ -97,6 +110,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - `--no-memory`: desactiva snapshots de memoria.
 - `--no-tracemalloc`: deja psutil pero omite tracemalloc.
 - `--skip-inputs`: no serializa inputs/outputs de las llamadas.
+- Export OTLP (opcional, requiere `opentelemetry-*`): `--export-otlp-endpoint http://localhost:4318/v1/traces`, `--export-otlp-service miapp`, headers extra con `--export-otlp-header clave=valor` (repetible).
 - Cualquier otro argumento se reenvía al script perfilado.
 
 ### Ejemplos de uso
@@ -105,6 +119,9 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - Overhead mínimo: `python flowtrace.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
 - Flush por llamada con logs: `python flowtrace.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
 - Solo psutil (sin tracemalloc): `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
+- Export a OTLP/HTTP: `python flowtrace.py -s samples/basic/basic_sample.py --export-otlp-endpoint http://localhost:4318/v1/traces --export-otlp-service flowtrace-sample`
+- Exportar un JSON ya capturado a Jaeger (OTLP/HTTP, puerto 4318): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample`
+- Exportar con cabeceras extra (auth/tenant): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
 
 ## Ejemplos incluidos
 - `script.py` ejemplo basico.
