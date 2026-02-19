@@ -93,7 +93,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - `--flush-interval`: segundos entre flushes en background; `<=0` desactiva el hilo (por defecto `1.0`).
 - `--flush-every-call`: fuerza flush en cada evento (lento; legado).
 - `--log-flushes`: loguea cada flush a stderr.
-- `--with-memory`: habilita snapshots de memoria (psutil + tracemalloc). Por defecto está apagado; al activarlo las corridas serán más lentas.
+- `--with-memory`: habilita snapshots de memoria (psutil + tracemalloc). Por defecto está apagado; al activarlo las ejecuciones serán más lentas.
 - `--no-memory`: desactiva snapshots de memoria.
 - `--no-tracemalloc`: deja psutil pero omite tracemalloc.
 - `--skip-inputs`: no serializa inputs/outputs de las llamadas.
