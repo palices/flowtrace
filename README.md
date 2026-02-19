@@ -68,7 +68,6 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 ## Backlog / ideas
 - Filters by module/class/time.
 - Export filtered views.
-- Integration with spans/telemetry.
 
 ---
 
@@ -76,6 +75,11 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 
 ![Vista general de FlowTrace](images/flowtrace.jpg)
 ![Panel de detalle de llamadas](images/flowtrace_calls.jpg)
+
+## Inicio rápido (3 pasos)
+1. Capturar el ejemplo complejo a JSON: `python flowtrace.py -s samples/complex/complex_app.py -o flowtrace_complex.json`
+2. Generar el visor HTML: `python flowtrace_visual.py -i flowtrace_complex.json -o flowtrace_complex.html`
+3. Exportar a OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i flowtrace_complex.json --endpoint http://localhost:4318/v1/traces --service flowtrace-complex`
 
 ## Flujo basico
 1. Perfilar un script: `python flowtrace.py -s tu_script.py -o flowtrace.json`
@@ -135,4 +139,3 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - Filtros por mdulo/clase/tiempo.
 - Export de vistas filtradas.
 - Integracin con spans/telemetra.
-
