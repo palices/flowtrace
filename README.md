@@ -1,17 +1,17 @@
-# FlowTrace
+# PyTraceFlow
 
 FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
 
-![FlowTrace overview](images/flowtrace.jpg)
-![Call details panel](images/flowtrace_calls.jpg)
+![FlowTrace overview](images/pytraceflow.jpg)
+![Call details panel](images/pytraceflow_calls.jpg)
 
 ## Quick start (3 steps)
 1. Capture the complex sample to JSON: `python flowtrace.py -s samples/complex/complex_app.py -o flowtrace_complex.json`
 2. Render the HTML viewer: `python flowtrace_visual.py -i flowtrace_complex.json -o flowtrace_complex.html`
-![Call details panel](images/flowtrace_visual.jpg)
+![Call details panel](images/pytraceflow_visual.jpg)
 3. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i flowtrace_complex.json --endpoint http://localhost:4318/v1/traces --service flowtrace-complex`
-![Call details panel](images/flowtrace_to_otlp_menu.jpg)
-![Call details panel](images/flowtrace_to_otlp_spans.jpg)
+![Call details panel](images/pytraceflow_to_otlp_menu.jpg)
+![Call details panel](images/pytraceflow_to_otlp_spans.jpg)
 ## Basic flow
 1. Profile a script: `python flowtrace.py -s your_script.py -o flowtrace.json`
 2. Generate the viewer: `python flowtrace_visual.py -i flowtrace.json -o flowtrace.html`
