@@ -10,7 +10,7 @@ import tracemalloc
 from pathlib import Path
 
 
-class TraceradoProfiler:
+class PyFlowTraceProfiler:
     def __init__(
         self,
         script_path,
@@ -173,6 +173,9 @@ class TraceradoProfiler:
             return
 
         if frame.f_code.co_name == "<module>":
+            return
+        if frame.f_code.co_name.startswith("<"):
+            # omite frames sintéticos (listcomp/lambda/genexpr) pero deja que sus hijos se enganchen al padre real
             return
         if self._is_class_definition(frame):
             return
@@ -357,6 +360,10 @@ class TraceradoProfiler:
         pruned = []
         for child in node.get("calls", []):
             self._prune_calls(child)
+            # descarta nodos sintéticos de python y reancla sus hijos al padre
+            if str(child.get("callable", "")).startswith("<"):
+                pruned.extend(child.get("calls", []))
+                continue
             if self._is_class_definition_node(child):
                 pruned.extend(child.get("calls", []))
                 continue
@@ -440,7 +447,7 @@ def _parse_args():
     parser.add_argument(
         "-o",
         "--output",
-        default="flowtrace.json",
+        default="pft.json",
         help="Ruta del JSON de salida",
     )
     parser.add_argument(
@@ -491,7 +498,7 @@ def main():
     args = _parse_args()
     capture_memory = args.with_memory and not args.no_memory
     enable_tracemalloc = capture_memory and not args.no_tracemalloc
-    profiler = TraceradoProfiler(
+    profiler = PyFlowTraceProfiler(
         args.script,
         args.output,
         args.script_args,

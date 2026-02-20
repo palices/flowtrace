@@ -227,7 +227,7 @@ def _render_html(data):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FlowTrace</title>
+  <title>PyPyFlowTrace</title>
   <style>
     :root {{
       --bg: #f6f2e8;
@@ -765,7 +765,7 @@ def _render_html(data):
     document.body.classList.add('output-on-demand', 'inputs-on-demand', 'theme-dark');
   </script>
   <header>
-    <h1 data-i18n="headerTitle">FlowTrace</h1>
+    <h1 data-i18n="headerTitle">PyFlowTrace</h1>
     <div>
       <button type="button" data-i18n="expandAll" onclick="toggleAll(true)">Expandir todo</button>
       <button type="button" data-i18n="collapseAll" onclick="toggleAll(false)">Contraer todo</button>
@@ -1225,7 +1225,7 @@ function openSearchPanel(entry) {{
     }});
     const translations = {{
       es: {{
-        headerTitle: 'FlowTrace',
+        headerTitle: 'PyFlowTrace',
         expandAll: 'Expandir todo',
         collapseAll: 'Contraer todo',
         treeMode: 'Modo árbol',
@@ -1251,7 +1251,7 @@ function openSearchPanel(entry) {{
         close: 'Cerrar',
       }},
       en: {{
-        headerTitle: 'FlowTrace',
+        headerTitle: 'PyFlowTrace',
         expandAll: 'Expand all',
         collapseAll: 'Collapse all',
         treeMode: 'Tree mode',
@@ -1510,13 +1510,13 @@ def _parse_args():
     parser.add_argument(
         "-i",
         "--input",
-        default="flowtrace.json",
-        help="Ruta del JSON generado por flowtrace",
+        default="pft.json",
+        help="Ruta del JSON generado por pytraceflow",
     )
     parser.add_argument(
         "-o",
         "--output",
-        default="flowtrace.html",
+        default="pft.html",
         help="Ruta del HTML de salida",
     )
     return parser.parse_args()
