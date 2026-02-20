@@ -69,6 +69,9 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - Filters by module/class/time.
 - Export filtered views.
 
+## License
+MIT License. See `LICENSE` for full text.
+
 ---
 
 FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
@@ -139,3 +142,6 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - Filtros por mdulo/clase/tiempo.
 - Export de vistas filtradas.
 - Integracin con spans/telemetra.
+
+## Licencia
+MIT License. Ver `LICENSE` para el texto completo.
