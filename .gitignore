@@ -3,3 +3,9 @@
 __pycache__/
 jaeger-bin/
 jaeger.zip
+dist/
+build/
+*.egg-info/
+pft*.html
+pft*.json
+.pypirc
