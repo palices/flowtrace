@@ -1,5 +1,7 @@
 # PyTraceFlow.
-![PyTraceFlow logo](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/logo_pytfw_simple_nobrillo.png)
+<p align="left">
+  <img src="https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/logo_pytfw_simple_nobrillo.png" alt="PyTraceFlow logo" width="320" style="max-width:100%; height:auto;">
+</p>
 
 [![PyPI](https://img.shields.io/pypi/v/pytraceflow)](https://pypi.org/project/pytraceflow/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://pypi.org/project/pytraceflow/)
