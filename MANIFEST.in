@@ -1,0 +1,9 @@
+include LICENSE
+include README.md
+exclude pft*.html
+exclude pft*.json
+exclude jaeger.zip
+recursive-exclude jaeger-bin *
+recursive-exclude __pycache__ *
+recursive-exclude .venv *
+recursive-include samples *.py

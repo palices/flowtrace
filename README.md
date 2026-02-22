@@ -1,29 +1,35 @@
-# PyTraceFlow
+# PyTraceFlow.
+
+[![PyPI](https://img.shields.io/pypi/v/pytraceflow)](https://pypi.org/project/pytraceflow/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://pypi.org/project/pytraceflow/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-alpha-orange)](#)
+[![Downloads](https://img.shields.io/pypi/dm/pytraceflow?color=blue)](https://pypi.org/project/pytraceflow/)
 
 FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
 
-![FlowTrace overview](images/pytraceflow.jpg)
-![Call details panel](images/pytraceflow_calls.jpg)
+![FlowTrace overview](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
+![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Quick start (3 steps)
-1. Capture the complex sample to JSON: `python flowtrace.py -s samples/complex/complex_app.py -o flowtrace_complex.json`
-2. Render the HTML viewer: `python flowtrace_visual.py -i flowtrace_complex.json -o flowtrace_complex.html`
-![Call details panel](images/pytraceflow_visual.jpg)
-3. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i flowtrace_complex.json --endpoint http://localhost:4318/v1/traces --service flowtrace-complex`
-![Call details panel](images/pytraceflow_to_otlp_menu.jpg)
-![Call details panel](images/pytraceflow_to_otlp_spans.jpg)
+1. Capture the complex sample to JSON: `python pytraceflow.py -s samples/complex/complex_app.py -o pft_complex.json`
+2. Render the HTML viewer: `python pytraceflow_visual.py -i pft_complex.json -o pft_complex.html`
+![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_visual.jpg)
+3. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i pft_complex.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
+![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
+![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
 ## Basic flow
-1. Profile a script: `python flowtrace.py -s your_script.py -o flowtrace.json`
-2. Generate the viewer: `python flowtrace_visual.py -i flowtrace.json -o flowtrace.html`
-3. Open `flowtrace.html` and browse:
+1. Profile a script: `python pytraceflow.py -s your_script.py -o pft.json`
+2. Generate the viewer: `python pytraceflow_visual.py -i pft.json -o pft.html`
+3. Open `pft.html` and browse:
    - Search terms: opens the matching node in a floating panel.
    - Expand/collapse nodes; open calls.
    - Controls to show/hide badges, Python internals, language (es/en), and light/dark mode.
 
 ### Passing script arguments
-- Any arguments unknown to `flowtrace.py` are forwarded to the profiled script (no `--` separator required).
-- Example with options: `python flowtrace.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
-- Example with positionals: `python flowtrace.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
+- Any arguments unknown to `pytraceflow.py` are forwarded to the profiled script (no `--` separator required).
+- Example with options: `python pytraceflow.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
+- Example with positionals: `python pytraceflow.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
 
 ## Features
 - Captures inputs/outputs, caller, module, duration, and errors.
@@ -37,7 +43,7 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 
 ## CLI options
 - `-s/--script` (required): target script path.
-- `-o/--output`: JSON output path (default `flowtrace.json`).
+- `-o/--output`: JSON output path (default `pft.json`).
 - `--flush-interval`: seconds between background flushes; `<=0` disables thread (default `1.0`).
 - `--flush-every-call`: force flush on every event (slow; legacy).
 - `--log-flushes`: log each flush to stderr.
@@ -49,14 +55,14 @@ FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of
 - Any other args are forwarded to the profiled script.
 
 ### Usage examples
-- Default fast run: `python flowtrace.py -s samples/basic/basic_sample.py -o flowtrace.json`
-- With memory metrics: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --flush-interval 2.0`
-- Minimal overhead: `python flowtrace.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
-- Legacy per-call flush with logs: `python flowtrace.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
-- Memory via psutil only: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
-- Export to OTLP/HTTP: `python flowtrace.py -s samples/basic/basic_sample.py --export-otlp-endpoint http://localhost:4318/v1/traces --export-otlp-service flowtrace-sample`
-- Export a saved trace to Jaeger (OTLP/HTTP, port 4318): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample`
-- Export with custom headers (auth/tenant): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
+- Default fast run: `python pytraceflow.py -s samples/basic/basic_sample.py -o pft.json`
+- With memory metrics: `python pytraceflow.py -s samples/basic/basic_sample.py --with-memory --flush-interval 2.0`
+- Minimal overhead: `python pytraceflow.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
+- Legacy per-call flush with logs: `python pytraceflow.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
+- Memory via psutil only: `python pytraceflow.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
+- Export to OTLP/HTTP: `python pytraceflow.py -s samples/basic/basic_sample.py --export-otlp-endpoint http://localhost:4318/v1/traces --export-otlp-service pytraceflow-sample`
+- Export a saved trace to Jaeger (OTLP/HTTP, port 4318): `python export_otlp.py -i pft.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-sample`
+- Export with custom headers (auth/tenant): `python export_otlp.py -i pft.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
 
 ## Included examples
 - `script.py` basic example.
@@ -76,26 +82,29 @@ MIT License. See `LICENSE` for full text.
 
 FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
 
-![Vista general de FlowTrace](images/flowtrace.jpg)
-![Panel de detalle de llamadas](images/flowtrace_calls.jpg)
+![Vista general de FlowTrace](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
+![Panel de detalle de llamadas](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Inicio rápido (3 pasos)
-1. Capturar el ejemplo complejo a JSON: `python flowtrace.py -s samples/complex/complex_app.py -o flowtrace_complex.json`
-2. Generar el visor HTML: `python flowtrace_visual.py -i flowtrace_complex.json -o flowtrace_complex.html`
-3. Exportar a OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i flowtrace_complex.json --endpoint http://localhost:4318/v1/traces --service flowtrace-complex`
+1. Capturar el ejemplo complejo a JSON: `python pytraceflow.py -s samples/complex/complex_app.py -o pft_complex.json`
+2. Generar el visor HTML: `python pytraceflow_visual.py -i pft_complex.json -o pft_complex.html`
+![Panel visual de llamadas](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_visual.jpg)
+3. Exportar a OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i pft_complex.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
+![Menu de exportacion a OTLP/Jaeger](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
+![Spans exportados a Jaeger](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
 
 ## Flujo basico
-1. Perfilar un script: `python flowtrace.py -s tu_script.py -o flowtrace.json`
-2. Generar visor: `python flowtrace_visual.py -i flowtrace.json -o flowtrace.html`
-3. Abrir `flowtrace.html` y navegar:
+1. Perfilar un script: `python pytraceflow.py -s tu_script.py -o pft.json`
+2. Generar visor: `python pytraceflow_visual.py -i pft.json -o pft.html`
+3. Abrir `pft.html` y navegar:
    - Buscar trminos: abre el nodo coincidente en panel flotante.
    - Expandir/colapsar nodos; abrir calls.
    - Controles para mostrar/ocultar badges, internals de Python, idioma (es/en) y modo claro/oscuro.
 
 ### Pasar argumentos al script
-- Cualquier argumento que `flowtrace.py` no reconoce se reenvia al script perfilado (no hace falta `--`).
-- Ejemplo con opciones: `python flowtrace.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
-- Ejemplo con posicionales: `python flowtrace.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
+- Cualquier argumento que `pytraceflow.py` no reconoce se reenvia al script perfilado (no hace falta `--`).
+- Ejemplo con opciones: `python pytraceflow.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
+- Ejemplo con posicionales: `python pytraceflow.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
 
 ## Caracteristicas
 - Captura inputs/outputs, caller, modulo, duracion y errores.
@@ -109,7 +118,7 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 
 ## Opciones CLI
 - `-s/--script` (obligatorio): ruta del script a perfilar.
-- `-o/--output`: ruta del JSON de salida (por defecto `flowtrace.json`).
+- `-o/--output`: ruta del JSON de salida (por defecto `pft.json`).
 - `--flush-interval`: segundos entre flushes en background; `<=0` desactiva el hilo (por defecto `1.0`).
 - `--flush-every-call`: fuerza flush en cada evento (lento; legado).
 - `--log-flushes`: loguea cada flush a stderr.
@@ -121,14 +130,14 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 - Cualquier otro argumento se reenvía al script perfilado.
 
 ### Ejemplos de uso
-- Ejecución rápida por defecto: `python flowtrace.py -s samples/basic/basic_sample.py -o flowtrace.json`
-- Con métricas de memoria: `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --flush-interval 2.0`
-- Overhead mínimo: `python flowtrace.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
-- Flush por llamada con logs: `python flowtrace.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
-- Solo psutil (sin tracemalloc): `python flowtrace.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
-- Export a OTLP/HTTP: `python flowtrace.py -s samples/basic/basic_sample.py --export-otlp-endpoint http://localhost:4318/v1/traces --export-otlp-service flowtrace-sample`
-- Exportar un JSON ya capturado a Jaeger (OTLP/HTTP, puerto 4318): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample`
-- Exportar con cabeceras extra (auth/tenant): `python export_otlp.py -i flowtrace.json --endpoint http://localhost:4318/v1/traces --service flowtrace-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
+- Ejecución rápida por defecto: `python pytraceflow.py -s samples/basic/basic_sample.py -o pft.json`
+- Con métricas de memoria: `python pytraceflow.py -s samples/basic/basic_sample.py --with-memory --flush-interval 2.0`
+- Overhead mínimo: `python pytraceflow.py -s samples/basic/basic_sample.py --flush-interval 0 --skip-inputs`
+- Flush por llamada con logs: `python pytraceflow.py -s samples/basic/basic_sample.py --flush-every-call --log-flushes`
+- Solo psutil (sin tracemalloc): `python pytraceflow.py -s samples/basic/basic_sample.py --with-memory --no-tracemalloc`
+- Export a OTLP/HTTP: `python pytraceflow.py -s samples/basic/basic_sample.py --export-otlp-endpoint http://localhost:4318/v1/traces --export-otlp-service pytraceflow-sample`
+- Exportar un JSON ya capturado a Jaeger (OTLP/HTTP, puerto 4318): `python export_otlp.py -i pft.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-sample`
+- Exportar con cabeceras extra (auth/tenant): `python export_otlp.py -i pft.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
 
 ## Ejemplos incluidos
 - `script.py` ejemplo basico.
@@ -145,3 +154,4 @@ FlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger p
 
 ## Licencia
 MIT License. Ver `LICENSE` para el texto completo.
+

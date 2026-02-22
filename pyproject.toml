@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytraceflow"
+version = "0.1.2"
+description = "Post-mortem Python trace profiler that emits JSON plus an HTML viewer and OTLP exporter."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "FlowTrace maintainers" }]
+keywords = ["tracing", "profiling", "debugging", "observability", "otlp", "jaeger"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Debuggers",
+  "Topic :: System :: Monitoring"
+]
+dependencies = []
+
+[project.optional-dependencies]
+memory = ["psutil>=5.9"]
+otlp = ["opentelemetry-sdk>=1.22.0", "opentelemetry-exporter-otlp>=1.22.0"]
+all = ["psutil>=5.9", "opentelemetry-sdk>=1.22.0", "opentelemetry-exporter-otlp>=1.22.0"]
+
+[project.scripts]
+pytraceflow = "pytraceflow:main"
+pytraceflow-visual = "pytraceflow_visual:main"
+pytraceflow-export-otlp = "export_otlp:main"
+
+[tool.setuptools]
+py-modules = ["pytraceflow", "pytraceflow_visual", "export_otlp"]
