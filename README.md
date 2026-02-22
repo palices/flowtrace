@@ -3,7 +3,7 @@
 </p>
 # PyTraceFlow.
 
-[![PyPI](https://img.shields.io/pypi/v/pytraceflow)](https://pypi.org/project/pytraceflow/)
+[![PyPI](https://img.shields.io/pypi/v/pytraceflow.svg?label=PyPI&color=blue&cacheSeconds=300)](https://pypi.org/project/pytraceflow/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://pypi.org/project/pytraceflow/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-alpha-green)](#)
