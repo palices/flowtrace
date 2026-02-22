@@ -6,9 +6,9 @@
 [![Status](https://img.shields.io/badge/status-alpha-green)](#)
 [![Downloads](https://img.shields.io/pypi/dm/pytraceflow?color=blue)](https://pypi.org/project/pytraceflow/)
 
-PyFlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
+PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
 
-![PyFlowTrace overview](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
+![PyTraceFlow overview](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
 ![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Quick start (3 steps)
@@ -38,7 +38,7 @@ PyFlowTrace is a trace visualizer designed as a "post-mortem debugger": instead 
 - Dark mode by default, quick controls, and multi-language.
 - Performance knobs: `--flush-interval` (seconds, <=0 disables background flush), `--flush-every-call` (legacy, slower), `--log-flushes` (stderr).
 - Overhead controls: memoria desactivada por defecto; habilita con `--with-memory` (usa psutil + tracemalloc), o combina `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
-- Root entry now records total runtime; STDERR line: `[PyFlowTrace] Profiling finished in X.XXXs (script=...)`.
+- Root entry now records total runtime; STDERR line: `[PyTraceFlow] Profiling finished in X.XXXs (script=...)`.
 - Export existing traces to OTLP/Jaeger via `export_otlp.py`, with span names enriched by module and instance id to make nested calls distinct in Jaeger UI.
 
 ## CLI options
@@ -80,9 +80,9 @@ MIT License. See `LICENSE` for full text.
 
 ---
 
-PyFlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
+PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
 
-![Vista general de PyFlowTrace](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
+![Vista general de PyTraceFlow](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
 ![Panel de detalle de llamadas](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Inicio rápido (3 pasos)
@@ -113,7 +113,7 @@ PyFlowTrace es un visualizador de trazas de ejecucion, pensado como un "debugger
 - Modo oscuro por defecto, controles rapidos y multilenguaje.
 - Ajustes de performance: `--flush-interval` (segundos, <=0 desactiva flush en background), `--flush-every-call` (modo anterior, mas lento), `--log-flushes` (stderr).
 - Controles de overhead: memoria viene desactivada por defecto; `--with-memory` la habilita (psutil + tracemalloc), combinable con `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
-- La llamada raiz registra el tiempo total; se imprime en STDERR `[PyFlowTrace] Profiling finished in X.XXXs (script=...)`.
+- La llamada raiz registra el tiempo total; se imprime en STDERR `[PyTraceFlow] Profiling finished in X.XXXs (script=...)`.
 - Export de trazas existentes a OTLP/Jaeger con `export_otlp.py`; los spans incluyen módulo e id de instancia para distinguir llamadas anidadas en Jaeger.
 
 ## Opciones CLI
