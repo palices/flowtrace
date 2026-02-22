@@ -1,5 +1,5 @@
 <p align="center" style="margin-bottom: 0;">
-  <img src="https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/logo_pytfw_simple_nobrillo_small.png" alt="PyTraceFlow logo" width="320" style="max-width:100%; height:auto;">
+  <img src="https://raw.githubusercontent.com/palices/flowtrace/main/images/logo_pytfw_simple_nobrillo_small.png" alt="PyTraceFlow logo" width="320" style="max-width:100%; height:auto;">
 </p>
 # PyTraceFlow.
 
@@ -11,16 +11,16 @@
 
 PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
 
-[![PyTraceFlow overview](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
-[![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)
+[![PyTraceFlow overview](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow.jpg)
+[![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_calls.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Quick start (3 steps)
 1. Capture the complex sample to JSON: `python pytraceflow.py -s samples/complex/complex_app.py -o pft_complex.json`
 2. Render the HTML viewer: `python pytraceflow_visual.py -i pft_complex.json -o pft_complex.html`
-[![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_visual.jpg)
+[![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)
 3. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i pft_complex.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
-[![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
-[![Call details panel](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
+[![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
+[![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
 ## Basic flow
 1. Profile a script: `python pytraceflow.py -s your_script.py -o pft.json`
 2. Generate the viewer: `python pytraceflow_visual.py -i pft.json -o pft.html`
@@ -85,16 +85,16 @@ MIT License. See `LICENSE` for full text.
 
 PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger post-mortem": en lugar de parar y reanudar, captura las llamadas (inputs, outputs, caller, modulo, duracion, errores) en un JSON jerarquico para inspeccionarlo despues sin reejecutar.
 
-[![Vista general de PyTraceFlow](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
-[![Panel de detalle de llamadas](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_calls.jpg)
+[![Vista general de PyTraceFlow](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow.jpg)
+[![Panel de detalle de llamadas](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_calls.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Inicio rápido (3 pasos)
 1. Capturar el ejemplo complejo a JSON: `python pytraceflow.py -s samples/complex/complex_app.py -o pft_complex.json`
 2. Generar el visor HTML: `python pytraceflow_visual.py -i pft_complex.json -o pft_complex.html`
-[![Panel visual de llamadas](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_visual.jpg)
+[![Panel visual de llamadas](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)
 3. Exportar a OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i pft_complex.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
-[![Menu de exportacion a OTLP/Jaeger](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
-[![Spans exportados a Jaeger](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
+[![Menu de exportacion a OTLP/Jaeger](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
+[![Spans exportados a Jaeger](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
 
 ## Flujo basico
 1. Perfilar un script: `python pytraceflow.py -s tu_script.py -o pft.json`
