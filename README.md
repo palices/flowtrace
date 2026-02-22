@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/pytraceflow)](https://pypi.org/project/pytraceflow/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://pypi.org/project/pytraceflow/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-alpha-orange)](#)
+[![Status](https://img.shields.io/badge/status-alpha-green)](#)
 [![Downloads](https://img.shields.io/pypi/dm/pytraceflow?color=blue)](https://pypi.org/project/pytraceflow/)
 
 FlowTrace is a trace visualizer designed as a "post-mortem debugger": instead of pausing and resuming, it captures calls (inputs, outputs, caller, module, duration, errors) into a hierarchical JSON so you can inspect them later without re-running.
