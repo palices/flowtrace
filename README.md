@@ -157,3 +157,6 @@ PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger
 ## Licencia
 MIT License. Ver `LICENSE` para el texto completo.
 
+---
+Author: Tony F.
+
