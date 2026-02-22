@@ -436,66 +436,75 @@ class PyFlowTraceProfiler:
         )
 
 
-def _parse_args():
-    parser = argparse.ArgumentParser(description="Tracerado JSON profiler")
+def _build_parser():
+    parser = argparse.ArgumentParser(description="Post-mortem JSON trace profiler")
     parser.add_argument(
         "-s",
         "--script",
         required=True,
-        help="Ruta del script a ejecutar",
+        help="Path to the Python script to profile",
     )
     parser.add_argument(
         "-o",
         "--output",
         default="pft.json",
-        help="Ruta del JSON de salida",
+        help="JSON output path (default: pft.json)",
     )
     parser.add_argument(
         "--flush-interval",
         type=float,
         default=1.0,
-        help="Intervalo (s) entre flusheos en background; <=0 desactiva el flush periodico",
+        help="Seconds between background flushes; <=0 disables periodic flush",
     )
     parser.add_argument(
         "--flush-every-call",
         action="store_true",
-        help="Forzar flush en cada evento (compatible hacia atras, mas lento)",
+        help="Force flush on every event (slower; legacy)",
     )
     parser.add_argument(
         "--log-flushes",
         action="store_true",
-        help="Escribir en stderr cada flush realizado",
+        help="Log each flush to stderr",
     )
     parser.add_argument(
         "--with-memory",
         action="store_true",
-        help="Capturar snapshots de memoria (psutil/tracemalloc); desactivado por defecto",
+        help="Capture memory snapshots (psutil + tracemalloc); disabled by default",
     )
     parser.add_argument(
         "--no-memory",
         action="store_true",
-        help="No capturar snapshots de memoria (psutil/tracemalloc)",
+        help="Disable memory snapshots entirely (psutil + tracemalloc)",
     )
     parser.add_argument(
         "--no-tracemalloc",
         action="store_true",
-        help="Desactivar tracemalloc incluso si se captura memoria",
+        help="Disable tracemalloc even when memory snapshots are enabled",
     )
     parser.add_argument(
         "--skip-inputs",
         action="store_true",
-        help="No registrar inputs/outputs de llamadas (reduce serializacion)",
+        help="Do not record call inputs/outputs (reduces serialization)",
     )
-    args, unknown = parser.parse_known_args()
-    # cualquier argumento no reconocido se pasa al script perfilado
+    return parser
+
+
+def _parse_args(argv=None):
+    parser = _build_parser()
+    args, unknown = parser.parse_known_args(argv)
+    # Any unknown args are forwarded to the profiled script
     args.script_args = list(unknown)
     if args.script_args and args.script_args[0] == "--":
         args.script_args = args.script_args[1:]
-    return args
+    return parser, args
 
 
 def main():
-    args = _parse_args()
+    # If no arguments are provided, show help and exit cleanly
+    if len(sys.argv) == 1:
+        _build_parser().print_help()
+        sys.exit(0)
+    _, args = _parse_args()
     capture_memory = args.with_memory and not args.no_memory
     enable_tracemalloc = capture_memory and not args.no_tracemalloc
     profiler = PyFlowTraceProfiler(
