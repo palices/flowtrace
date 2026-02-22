@@ -1,4 +1,4 @@
-# PyTraceFlow.
+# ![PyTraceFlow](https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/pytraceflow.jpg)
 
 [![PyPI](https://img.shields.io/pypi/v/pytraceflow)](https://pypi.org/project/pytraceflow/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://pypi.org/project/pytraceflow/)
