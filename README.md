@@ -1,5 +1,5 @@
-<p align="left">
-  <img src="https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/logo_pytfw_simple_nobrillo.png" alt="PyTraceFlow logo" width="320" style="max-width:100%; height:auto;">
+<p align="center" style="margin-bottom: 0;">
+  <img src="https://raw.githubusercontent.com/ajlorido/flowtrace/main/images/logo_pytfw_simple_nobrillo_small.png" alt="PyTraceFlow logo" width="320" style="max-width:100%; height:auto;">
 </p>
 # PyTraceFlow.
 
