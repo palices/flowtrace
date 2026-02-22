@@ -227,7 +227,7 @@ def _render_html(data):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PyPyFlowTrace</title>
+  <title>PyTraceFlow</title>
   <style>
     :root {{
       --bg: #f6f2e8;
@@ -296,6 +296,17 @@ def _render_html(data):
     body.theme-dark header {{
       background: linear-gradient(180deg, #1a2334 0%, #0f1117 100%);
       border-bottom: 1px solid #1f2635;
+    }}
+    .brand {{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }}
+    .brand-logo {{
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18));
     }}
     .controls {{
       display: flex;
@@ -765,7 +776,10 @@ def _render_html(data):
     document.body.classList.add('output-on-demand', 'inputs-on-demand', 'theme-dark');
   </script>
   <header>
-    <h1 data-i18n="headerTitle">PyFlowTrace</h1>
+    <div class="brand">
+      <img class="brand-logo" src="images/logo_pytfw_simple_nobrillo_small.png" alt="PyTraceFlow logo">
+      <h1 data-i18n="headerTitle">PyTraceFlow</h1>
+    </div>
     <div>
       <button type="button" data-i18n="expandAll" onclick="toggleAll(true)">Expandir todo</button>
       <button type="button" data-i18n="collapseAll" onclick="toggleAll(false)">Contraer todo</button>
@@ -1225,7 +1239,7 @@ function openSearchPanel(entry) {{
     }});
     const translations = {{
       es: {{
-        headerTitle: 'PyFlowTrace',
+        headerTitle: 'PyTraceFlow',
         expandAll: 'Expandir todo',
         collapseAll: 'Contraer todo',
         treeMode: 'Modo árbol',
@@ -1251,7 +1265,7 @@ function openSearchPanel(entry) {{
         close: 'Cerrar',
       }},
       en: {{
-        headerTitle: 'PyFlowTrace',
+        headerTitle: 'PyTraceFlow',
         expandAll: 'Expand all',
         collapseAll: 'Collapse all',
         treeMode: 'Tree mode',
