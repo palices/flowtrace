@@ -14,10 +14,12 @@ PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead 
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_calls.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_calls.jpg)
 
 ## Quick start (3 steps)
+0. Copy files pytraceflow.py and pytraceflow_visual.py to your project folder
 1. Capture script execution to JSON: `python pytraceflow.py -s <PATH_TO_PYTHON_SCRIPT> -o <JSON_FILENAME>`
 2. Render the HTML viewer: `python pytraceflow_visual.py -i <JSON_FILENAME> -o <HTML_OUTPUT_FILENAME>`
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)
-3. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i <JSON_FILE_NAME> --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
+3. Install PyCharm plugin (optional) located at `plugins/pycharm/Pytraceflow_plugin-1.0.0.zip`
+4. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i <JSON_FILE_NAME> --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
 ## Basic flow
@@ -42,6 +44,13 @@ PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead 
 - Overhead controls: memoria desactivada por defecto; habilita con `--with-memory` (usa psutil + tracemalloc), o combina `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
 - Root entry now records total runtime; STDERR line: `[PyTraceFlow] Profiling finished in X.XXXs (script=...)`.
 - Export existing traces to OTLP/Jaeger via `export_otlp.py`, with span names enriched by module and instance id to make nested calls distinct in Jaeger UI.
+
+## PyCharm plugin
+- Packaged ZIP: `plugins/pycharm/Pytraceflow_plugin-1.0.0.zip`.
+- Install: PyCharm Settings > Plugins > gear > Install Plugin from Disk > select the ZIP > restart.
+- Use: set a breakpoint, click the yellow diamond gutter icon to open the trace popup (tree + detail pane).
+- Generate traces from the popup with "Generate Pytraceflow json"; the command field is editable (default `python pytraceflow.py -s <script> <args>`).
+- More details in `plugins/readme.md`.
 
 ## CLI options
 - `-s/--script` (required): target script path.
@@ -91,7 +100,8 @@ PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger
 1. Capturar el ejemplo complejo a JSON: `python pytraceflow.py -s <RUTA_SCRIPT_PYTHON> -o <NOMBRE_FICHERO_JSON>`
 2. Generar el visor HTML: `python pytraceflow_visual.py -i <NOMBRE_FICHERO_JSON> -o <NOMBRE_FICHERO_HTML>`
 [![Panel visual de llamadas](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)
-3. (Opcional) Exportar a OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i <NOMBRE_FICHERO_JSON> --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
+3. Install Pycharm plugin (optional) 
+4. (Opcional) Exportar a OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i <NOMBRE_FICHERO_JSON> --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
 [![Menu de exportacion a OTLP/Jaeger](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
 [![Spans exportados a Jaeger](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
 
@@ -117,6 +127,13 @@ PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger
 - Controles de overhead: memoria viene desactivada por defecto; `--with-memory` la habilita (psutil + tracemalloc), combinable con `--no-tracemalloc` / `--no-memory`. `--skip-inputs` evita serializar args/kwargs.
 - La llamada raiz registra el tiempo total; se imprime en STDERR `[PyTraceFlow] Profiling finished in X.XXXs (script=...)`.
 - Export de trazas existentes a OTLP/Jaeger con `export_otlp.py`; los spans incluyen módulo e id de instancia para distinguir llamadas anidadas en Jaeger.
+
+## Plugin para PyCharm
+- ZIP listo para instalar: `plugins/pycharm/Pytraceflow_plugin-1.0.0.zip`.
+- Instalar: PyCharm Configuración > Plugins > rueda > Install Plugin from Disk > seleccionar el ZIP > reiniciar.
+- Uso: pon un breakpoint y haz clic en el icono amarillo del margen para abrir el popup de trazas (arbol + panel de detalle).
+- Genera trazas desde el popup con "Generate Pytraceflow json"; el comando es editable (por defecto `python pytraceflow.py -s <script> <args>`).
+- Detalles ampliados en `plugins/readme.md`.
 
 ## Opciones CLI
 - `-s/--script` (obligatorio): ruta del script a perfilar.
