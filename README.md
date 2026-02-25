@@ -18,7 +18,8 @@ PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead 
 1. Capture script execution to JSON: `python pytraceflow.py -s <PATH_TO_PYTHON_SCRIPT> -o <JSON_FILENAME>`
 2. Render the HTML viewer: `python pytraceflow_visual.py -i <JSON_FILENAME> -o <HTML_OUTPUT_FILENAME>`
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_visual.jpg)
-3. Install PyCharm plugin (optional) located at `plugins/pycharm/Pytraceflow_plugin-1.0.0.zip`
+3. Install PyCharm plugin (optional) located at `plugins/pycharm/Pytraceflow_plugin-1.0.0.zip`. See PyCharm plugin section
+[![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pycharm_plugin.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pycharm_plugin.jpg)
 4. Optional export to OTLP/Jaeger (HTTP 4318): `python export_otlp.py -i <JSON_FILE_NAME> --endpoint http://localhost:4318/v1/traces --service pytraceflow-complex`
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_menu.jpg)
 [![Call details panel](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)](https://raw.githubusercontent.com/palices/flowtrace/main/images/pytraceflow_to_otlp_spans.jpg)
