@@ -32,9 +32,12 @@ PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead 
    - Controls to show/hide badges, Python internals, language (es/en), and light/dark mode.
 
 ### Passing script arguments
-- Any arguments unknown to `pytraceflow.py` are forwarded to the profiled script (no `--` separator required).
+- PyTraceFlow uses `argparse.parse_known_args`; any arguments it does not recognize are forwarded to the profiled script (no `--` needed).
+- To avoid ambiguity when script flags look like PyTraceFlow flags, add an explicit separator: `--`.
 - Example with options: `python pytraceflow.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
 - Example with positionals: `python pytraceflow.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
+- Example with separator (recommended when mixing flags):  
+  `python pytraceflow.py -s my_app.py --flush-interval 5 --skip-inputs -- --flag-for-script foo --another 1`
 
 ## Features
 - Captures inputs/outputs, caller, module, duration, and errors.
@@ -115,9 +118,12 @@ PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger
    - Controles para mostrar/ocultar badges, internals de Python, idioma (es/en) y modo claro/oscuro.
 
 ### Pasar argumentos al script
-- Cualquier argumento que `pytraceflow.py` no reconoce se reenvia al script perfilado (no hace falta `--`).
+- PyTraceFlow usa `argparse.parse_known_args`; cualquier argumento que no reconoce se reenvía al script perfilado (no hace falta `--`).
+- Para evitar ambigüedad cuando los flags del script se parecen a los de PyTraceFlow, añade el separador explícito `--`.
 - Ejemplo con opciones: `python pytraceflow.py -s samples/basic/basic_sample.py --customer "ana maria" --tier gold --coffee 3`
 - Ejemplo con posicionales: `python pytraceflow.py -s samples/basic/basic_positional_sample.py "juan perez" silver 1 2 0 0.18`
+- Ejemplo con separador (recomendado cuando se mezclan flags):  
+  `python pytraceflow.py -s mi_app.py --flush-interval 5 --skip-inputs -- --flag-del-script foo --otra 1`
 
 ## Caracteristicas
 - Captura inputs/outputs, caller, modulo, duracion y errores.
