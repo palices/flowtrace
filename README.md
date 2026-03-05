@@ -97,6 +97,29 @@ PyTraceFlow is a trace visualizer designed as a "post-mortem debugger": instead 
 - Export a saved trace to Jaeger (OTLP/HTTP, port 4318): `python export_otlp.py -i pft.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-sample`
 - Export with custom headers (auth/tenant): `python export_otlp.py -i pft.json --endpoint http://localhost:4318/v1/traces --service pytraceflow-sample --header Authorization=Bearer_TOKEN --header X-Tenant=acme`
 
+## Multiprocessing autotrace (experimental)
+
+Enable via environment variables so child processes started with `multiprocessing` are traced automatically (one JSON per PID):
+```
+set PYTHONPATH=C:\path\to\repo;%PYTHONPATH%
+set PYTRACEFLOW_AUTOTRACE=1
+set PYTRACEFLOW_OUT_DIR=bench-output\autotrace
+set PYTRACEFLOW_FLUSH_INTERVAL=5
+set PYTRACEFLOW_FLUSH_CALL_THRESHOLD=500
+set PYTRACEFLOW_SKIP_INPUTS=1
+set PYTRACEFLOW_SKIP_OUTPUTS=1
+set PYTRACEFLOW_VERBOSE=1
+```
+- Each process writes `pft_<pid>.json` under `PYTRACEFLOW_OUT_DIR`.
+- The main process is also traced unless `PYTRACEFLOW_SKIP_MAIN=1`.
+- Tracing of `pytraceflow.py` itself is skipped to avoid recursion.
+- Works best with the spawn start method (default on Windows/macOS). On Linux fork, the profile may already be active in the child; env flags still apply.
+- Output location: each process writes `pft_<pid>.json` to `PYTRACEFLOW_OUT_DIR` (default `bench-output/autotrace` under the repo). Set `PYTRACEFLOW_OUT_DIR=.` to write to the current working directory.
+- Quick setup on Windows (cmd): `scripts\enable_autotrace.bat` exports all vars with sensible defaults.
+- Available env knobs (all optional):  
+  `PYTRACEFLOW_FLUSH_INTERVAL`, `PYTRACEFLOW_FLUSH_CALL_THRESHOLD`, `PYTRACEFLOW_SKIP_INPUTS`, `PYTRACEFLOW_SKIP_OUTPUTS`,  
+  `PYTRACEFLOW_VERBOSE`, `PYTRACEFLOW_WITH_MEMORY`, `PYTRACEFLOW_NO_MEMORY`, `PYTRACEFLOW_NO_TRACEMALLOC`, `PYTRACEFLOW_SKIP_MAIN`, `PYTRACEFLOW_OUT_DIR`.
+
 ## Included examples
 - `script.py` basic example.
 - `complex_app.py` with modules `demo/...` (prices, taxes, discounts).
@@ -190,28 +213,6 @@ PyTraceFlow es un visualizador de trazas de ejecucion, pensado como un "debugger
 - Tiempos + outputs (sin inputs): `--skip-inputs --flush-interval 5`
 - Tiempos + inputs (sin outputs): `--skip-outputs --flush-interval 5`
 
-## Multiprocessing autotrace (experimental)
-
-Enable via environment variables so child processes started with `multiprocessing` are traced automatically (one JSON per PID):
-```
-set PYTHONPATH=C:\path\to\repo;%PYTHONPATH%
-set PYTRACEFLOW_AUTOTRACE=1
-set PYTRACEFLOW_OUT_DIR=bench-output\autotrace
-set PYTRACEFLOW_FLUSH_INTERVAL=5
-set PYTRACEFLOW_FLUSH_CALL_THRESHOLD=500
-set PYTRACEFLOW_SKIP_INPUTS=1
-set PYTRACEFLOW_SKIP_OUTPUTS=1
-set PYTRACEFLOW_VERBOSE=1
-```
-- Each process writes `pft_<pid>.json` under `PYTRACEFLOW_OUT_DIR`.
-- The main process is also traced unless `PYTRACEFLOW_SKIP_MAIN=1`.
-- Tracing of `pytraceflow.py` itself is skipped to avoid recursion.
-- Works best with the spawn start method (default on Windows/macOS). On Linux fork, the profile may already be active in the child; env flags still apply.
-- Output location: each process writes `pft_<pid>.json` to `PYTRACEFLOW_OUT_DIR` (default `bench-output/autotrace` under the repo). Set `PYTRACEFLOW_OUT_DIR=.` to write to the current working directory.
-- Quick setup on Windows (cmd): `scripts\enable_autotrace.bat` exports all vars with sensible defaults.
-- Available env knobs (all optional):  
-  `PYTRACEFLOW_FLUSH_INTERVAL`, `PYTRACEFLOW_FLUSH_CALL_THRESHOLD`, `PYTRACEFLOW_SKIP_INPUTS`, `PYTRACEFLOW_SKIP_OUTPUTS`,  
-  `PYTRACEFLOW_VERBOSE`, `PYTRACEFLOW_WITH_MEMORY`, `PYTRACEFLOW_NO_MEMORY`, `PYTRACEFLOW_NO_TRACEMALLOC`, `PYTRACEFLOW_SKIP_MAIN`, `PYTRACEFLOW_OUT_DIR`.
 
 ## Autotrace multiproceso (experimental)
 
