@@ -55,6 +55,7 @@ def _maybe_start():
     verbose = _env_flag("PYTRACEFLOW_VERBOSE", False)
     with_memory = _env_flag("PYTRACEFLOW_WITH_MEMORY", False)
     no_tracemalloc = _env_flag("PYTRACEFLOW_NO_TRACEMALLOC", False)
+    allow_any = _env_flag("PYTRACEFLOW_ALLOW_ANY", False)
 
     try:
         from pytraceflow import PyFlowTraceProfiler  # type: ignore
@@ -74,6 +75,7 @@ def _maybe_start():
         capture_outputs=not skip_outputs,
         enable_tracemalloc=with_memory and not no_tracemalloc,
         verbose=verbose,
+        allow_any=allow_any,
     )
     profiler.start_live()
     atexit.register(profiler.stop_live)

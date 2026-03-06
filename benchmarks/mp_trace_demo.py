@@ -71,6 +71,17 @@ def main():
     parser.add_argument("--jobs", type=int, default=4, help="Number of workers")
     parser.add_argument("--iterations", type=int, default=200_000, help="Iterations per worker")
     parser.add_argument(
+        "--nested",
+        action="store_true",
+        help="Use nested multiprocessing (each worker spawns its own pool)",
+    )
+    parser.add_argument(
+        "--inner-jobs",
+        type=int,
+        default=2,
+        help="Inner pool size when using --nested",
+    )
+    parser.add_argument(
         "--trace-children",
         action="store_true",
         help="Run each worker under pytraceflow, one JSON per child",
@@ -82,10 +93,54 @@ def main():
     )
     args = parser.parse_args()
 
-    if args.trace_children:
-        run_traced_children(args.jobs, args.iterations, Path(args.output_dir))
+    if args.nested:
+        target = ROOT / "benchmarks" / "mp_nested_worker.py"
+        if args.trace_children:
+            # trace the outer workers; inner workers will not be traced unless autotrace is on
+            output_dir = Path(args.output_dir)
+            output_dir.mkdir(parents=True, exist_ok=True)
+            for idx in range(args.jobs):
+                out = output_dir / f"nested_outer_{idx}.json"
+                cmd = [
+                    sys.executable,
+                    str(PYTRACEFLOW),
+                    "-s",
+                    str(target),
+                    "-o",
+                    str(out),
+                    "--flush-interval",
+                    "5",
+                    "--flush-call-threshold",
+                    "500",
+                    "--skip-inputs",
+                    "--skip-outputs",
+                    "--verbose",
+                    "--",
+                    "--outer-jobs",
+                    "1",
+                    "--inner-jobs",
+                    str(args.inner_jobs),
+                    "--iterations",
+                    str(args.iterations),
+                ]
+                print(f"[demo] launching traced outer worker {idx}: {' '.join(cmd)}")
+                completed = subprocess.run(cmd, capture_output=True, text=True)
+                print(f"[demo] outer worker {idx} rc={completed.returncode}")
+                if completed.stdout:
+                    print(f"[demo] outer worker {idx} stdout:\n{completed.stdout}")
+                if completed.stderr:
+                    print(f"[demo] outer worker {idx} stderr:\n{completed.stderr}")
+            print(f"[demo] traced nested workers done. JSONs in {output_dir}")
+        else:
+            # run nested without tracing children; combine in one process
+            from mp_nested_worker import main as nested_main  # type: ignore
+
+            nested_main(args.jobs, args.inner_jobs, args.iterations)
     else:
-        run_pool(args.jobs, args.iterations)
+        if args.trace_children:
+            run_traced_children(args.jobs, args.iterations, Path(args.output_dir))
+        else:
+            run_pool(args.jobs, args.iterations)
 
 
 if __name__ == "__main__":

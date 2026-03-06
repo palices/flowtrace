@@ -26,6 +26,7 @@ class PyFlowTraceProfiler:
         capture_outputs=True,
         enable_tracemalloc=False,
         verbose=False,
+        allow_any=False,
     ):
         self.script_path = Path(script_path).resolve()
         self.output_path = Path(output_path)
@@ -80,6 +81,7 @@ class PyFlowTraceProfiler:
         self._last_snapshot_bytes = 0
         self._live_mode_started = False
         self._live_mode_stopped = False
+        self._allow_any = allow_any
 
     def _memory_snapshot(self):
         if not self._capture_memory:
@@ -171,7 +173,7 @@ class PyFlowTraceProfiler:
             filename.relative_to(self._root_dir)
             return True
         except ValueError:
-            return False
+            return self._allow_any
 
     def _is_class_constructor_call(self, frame):
         if frame.f_globals.get("__name__") != "__main__":
@@ -600,6 +602,11 @@ def _build_parser():
         help="Do not record call outputs/return values (reduces serialization)",
     )
     parser.add_argument(
+        "--trace-any",
+        action="store_true",
+        help="Trace any non-stdlib file (disable root-dir filter; useful in autotrace/multiprocess)",
+    )
+    parser.add_argument(
         "--verbose",
         action="store_true",
         help="Verbose logging: flush logs to stderr and periodic heartbeats",
@@ -640,6 +647,7 @@ def main():
         capture_outputs=not args.skip_outputs,
         enable_tracemalloc=enable_tracemalloc,
         verbose=args.verbose,
+        allow_any=args.trace_any,
     )
     profiler.run()
 
