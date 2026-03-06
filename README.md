@@ -119,6 +119,7 @@ set PYTRACEFLOW_VERBOSE=1
 - Available env knobs (all optional):  
   `PYTRACEFLOW_FLUSH_INTERVAL`, `PYTRACEFLOW_FLUSH_CALL_THRESHOLD`, `PYTRACEFLOW_SKIP_INPUTS`, `PYTRACEFLOW_SKIP_OUTPUTS`,  
   `PYTRACEFLOW_VERBOSE`, `PYTRACEFLOW_WITH_MEMORY`, `PYTRACEFLOW_NO_MEMORY`, `PYTRACEFLOW_NO_TRACEMALLOC`, `PYTRACEFLOW_SKIP_MAIN`, `PYTRACEFLOW_OUT_DIR`.
+- Autotrace remains **disabled** unless `PYTRACEFLOW_AUTOTRACE=1` is set; without it, `sitecustomize.py` is no-op and normal `pytraceflow.py` usage is unchanged.
 
 ## Included examples
 - `script.py` basic example.
@@ -236,6 +237,7 @@ set PYTRACEFLOW_VERBOSE=1
 - Variables disponibles (todas opcionales):  
   `PYTRACEFLOW_FLUSH_INTERVAL`, `PYTRACEFLOW_FLUSH_CALL_THRESHOLD`, `PYTRACEFLOW_SKIP_INPUTS`, `PYTRACEFLOW_SKIP_OUTPUTS`,  
   `PYTRACEFLOW_VERBOSE`, `PYTRACEFLOW_WITH_MEMORY`, `PYTRACEFLOW_NO_MEMORY`, `PYTRACEFLOW_NO_TRACEMALLOC`, `PYTRACEFLOW_SKIP_MAIN`, `PYTRACEFLOW_OUT_DIR`.
+- El autotrace está **desactivado** si no defines `PYTRACEFLOW_AUTOTRACE=1`; sin ella, `sitecustomize.py` no hace nada y el uso normal de `pytraceflow.py` no cambia.
 - Export OTLP (opcional, requiere `opentelemetry-*`): `--export-otlp-endpoint http://localhost:4318/v1/traces`, `--export-otlp-service miapp`, headers extra con `--export-otlp-header clave=valor` (repetible).
 - Cualquier otro argumento se reenvía al script perfilado.
 
