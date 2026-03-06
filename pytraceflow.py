@@ -7,6 +7,7 @@ import sys
 import time
 import sysconfig
 import tracemalloc
+import os
 from pathlib import Path
 
 
@@ -422,7 +423,7 @@ class PyFlowTraceProfiler:
         total_nodes = max(self._next_id - 1, 0)
         if log:
             sys.stderr.write(
-                f"[FlowTrace] Writing snapshot (callable={current_call}) to {self.output_path} "
+                f"[FlowTrace pid={os.getpid()}] Writing snapshot (callable={current_call}) to {self.output_path} "
                 f"(flush#{self._flush_count} size={self._last_snapshot_bytes}B roots={len(self.records)} nodes={total_nodes})\n"
             )
             sys.stderr.flush()
@@ -443,7 +444,7 @@ class PyFlowTraceProfiler:
             try:
                 total_nodes = max(self._next_id - 1, 0)
                 msg = (
-                    f"[FlowTrace] heartbeat roots={len(self.records)} nodes={total_nodes} "
+                    f"[FlowTrace pid={os.getpid()}] heartbeat roots={len(self.records)} nodes={total_nodes} "
                     f"inflight={len(self._inflight)} "
                     f"pending_flush={self._pending_new_records} "
                     f"flushes={self._flush_count} "
