@@ -38,7 +38,12 @@ class PyFlowTraceProfiler:
         self._instance_roots = {}
         self._next_id = 1
         self._root_entry = None
-        self._root_dir = self.script_path.parent
+        # Root directory used to decide which files to trace
+        if self.script_path.exists():
+            self._root_dir = self.script_path.parent
+        else:
+            # In autotrace (sitecustomize) sys.argv[0] may not point to a real file; default to cwd
+            self._root_dir = Path.cwd()
         # rutas a ignorar: stdlib y site-packages
         self._ignore_prefixes = []
         for key in ("stdlib", "platstdlib", "purelib", "platlib"):
@@ -414,10 +419,11 @@ class PyFlowTraceProfiler:
             self._pending_new_records = 0
             self._flush_count += 1
             self._last_snapshot_bytes = snapshot_bytes
+        total_nodes = max(self._next_id - 1, 0)
         if log:
             sys.stderr.write(
                 f"[FlowTrace] Writing snapshot (callable={current_call}) to {self.output_path} "
-                f"(flush#{self._flush_count} size={self._last_snapshot_bytes}B records={len(self.records)})\n"
+                f"(flush#{self._flush_count} size={self._last_snapshot_bytes}B roots={len(self.records)} nodes={total_nodes})\n"
             )
             sys.stderr.flush()
         self._write_output(snapshot)
@@ -435,8 +441,9 @@ class PyFlowTraceProfiler:
         interval = max(interval, 5.0)
         while not self._stop_flush.is_set():
             try:
+                total_nodes = max(self._next_id - 1, 0)
                 msg = (
-                    f"[FlowTrace] heartbeat calls={len(self.records)} "
+                    f"[FlowTrace] heartbeat roots={len(self.records)} nodes={total_nodes} "
                     f"inflight={len(self._inflight)} "
                     f"pending_flush={self._pending_new_records} "
                     f"flushes={self._flush_count} "
